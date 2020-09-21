@@ -1,5 +1,10 @@
+const Controllers = require('./controllers');
+
 module.exports = async (app, opts) => {
-  app.get('/', (req, res) => "Hello World")
+  app.get(
+    '/:id',
+    Controllers.UserDetailController.asHandler('get')
+  )
 }
 
 module.exports.autoPrefix = '/users'
