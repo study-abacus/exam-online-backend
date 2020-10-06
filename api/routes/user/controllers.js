@@ -7,6 +7,12 @@ const { createUserAfterSignUp } = require('./utils');
 class UserDetailController extends BaseDetailController {
   model = DB.users
 
+  async getMe() {
+    const user = this.request.user;
+
+    return this.serialize(user);
+  }
+
   async post() {
     const { name, email, password, passwordRepeat } = this.request.body;
 

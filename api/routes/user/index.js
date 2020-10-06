@@ -3,6 +3,10 @@ const Schema = require('./schema');
 
 module.exports = async (app, opts) => {
   app.get(
+    '/me',
+    Controllers.UserDetailController.asHandler('getMe')
+  )
+  app.get(
     '/:id',
     Controllers.UserDetailController.asHandler('get')
   )
