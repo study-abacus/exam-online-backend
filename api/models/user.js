@@ -4,7 +4,7 @@ const {
 const JsonApiModel = require('base/jsonApiModel');
 
 class User extends JsonApiModel {
-  attributes = ['id', 'name', 'email']
+  attributes = ['id', 'name', 'email', 'verified']
 
   static associate(models) {
     // define association here
@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: true
       },
+      allowNull: false
+    },
+    verified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
       allowNull: false
     }
   }, {

@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
   UserLocal.init({
     id: {
       type: DataTypes.BIGINT,
+      allowNull: false,
+      autoIncrement: true,
       primaryKey: true
     },
     passwordHash: {

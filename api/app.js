@@ -2,7 +2,8 @@ const Fastify = require('fastify');
 const Autoload = require('fastify-autoload');
 const path = require('path');
 const config = require('config');
-const ApiError = require('base/error');
+const Services = require('services');
+const { Error } = require('jsonapi-serializer');
 
 const app = Fastify({
   logger: process.env.NODE_ENV !== 'production'
@@ -10,16 +11,29 @@ const app = Fastify({
 
 app
   .register(Autoload, {
+    dir: path.join(__dirname, 'plugins'),
+    options: {}
+  })
+  .register(Services)
+  .register(Autoload, {
     dir: path.join(__dirname, 'routes'),
     options: { 
       prefix: '/api' 
     }
   })
   .setErrorHandler((error, request, reply) => {
-    if (error instanceof ApiError) {
+    console.log(error)
+
+    if (error.__isApiError) {
+      const resp = new Error({
+        title: error.title,
+        detail: error.detail,
+        code: error.code
+      })
+
       return reply
         .code(error.statusCode)
-        .send(error.toJsonApiResponse());
+        .send(resp);
     }
 
     return reply.code(500).send(error);

@@ -1,27 +1,19 @@
-const postSchema = {
+const loginSchema = {
   type: 'object',
   required: [
-    'name',
     'email',
-    'password',
-    'passwordRepeat'
+    'password'
   ],
   properties: {
-    name: {
-      type: 'string'
-    },
     email: {
       type: 'string'
     },
     password: {
-      type: 'string'
-    },
-    passwordRepeat: {
       type: 'string'
     }
   }
 }
 
 module.exports = {
-  postSchema
+  loginSchema
 }

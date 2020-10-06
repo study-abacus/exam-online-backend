@@ -8,7 +8,13 @@ class UserDetailController extends BaseDetailController {
   model = DB.users
 
   async post() {
-    const { name, email, password } = this.request.body
+    const { name, email, password, passwordRepeat } = this.request.body;
+
+    if (password !== passwordRepeat) {
+      throw new ApiError({
+        title: 'Password do not match'
+      }, 400);
+    }
 
     const previousUser = await this.model.findOne({
       where: {

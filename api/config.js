@@ -1,6 +1,7 @@
 module.exports = {
   SERVER: {
-    PORT: process.env.PORT || 6969
+    PORT: process.env.PORT || 6969,
+    SECRET: process.env.APP_SECRET || 'abcd'
   },
   DB: {
     username: process.env.DB_USER || 'champ',

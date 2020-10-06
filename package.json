@@ -15,7 +15,9 @@
     "cross-env": "^7.0.2",
     "fastify": "^3.3.0",
     "fastify-autoload": "^3.0.9",
+    "fastify-plugin": "^2.3.4",
     "jsonapi-serializer": "^3.6.6",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.3.3",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0"
