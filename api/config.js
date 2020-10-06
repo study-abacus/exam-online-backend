@@ -8,6 +8,6 @@ module.exports = {
     database: process.env.DB_USER || 'champ',
     host: process.env.DB_HOST || '127.0.0.1',
     dialect: "postgres",
-    logging: process.env.DB_LOGGING || true
+    logging: process.env.DB_LOGGING || console.log
   }
 }
