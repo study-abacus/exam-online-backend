@@ -1,5 +1,4 @@
 const BaseDetailController = require('base/controllers/detailController');
-const BaseController = require('base/controllers/baseController');
 const DB = require('models');
 const ApiError = require('base/error');
 const { createUserAfterSignUp } = require('./utils');

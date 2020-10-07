@@ -6,15 +6,23 @@ const { Serializer } = require('jsonapi-serializer');
 class JsonApiModel extends Model {
   attributes = ['id'];
 
-  get serializerOpts() {
+  static get serializerOpts() {
     return {
-      attributes: this.attributes
+      attributes: this.attributes,
+      meta: {
+        pagination: records => records.pagination
+      }
     }
   }
 
   toJsonApiPayload() {
     const serializer = new Serializer(this.constructor.name, this.serializerOpts)
     return serializer.serialize(this)
+  }
+
+  static listToJsonApiPayload(instances) {
+    const serializer = new Serializer(this.name, this.serializerOpts)
+    return serializer.serialize(instances)
   }
 }
 

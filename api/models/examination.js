@@ -4,9 +4,8 @@ const {
 const JsonApiModel = require('base/jsonApiModel');
 
 class Examination extends JsonApiModel {
-  serializerOpts = {
-    attributes: ['id', 'title', 'description', 'primaryPrice', 'secondaryPrice']
-  }
+  static attributes = ['id', 'title', 'description', 'primaryPrice', 'secondaryPrice']
+
   static associate(models) {
     // define association here
   }

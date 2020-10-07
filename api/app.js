@@ -27,6 +27,7 @@ app
     }
   })
   .setErrorHandler((error, request, reply) => {
+    console.log(error)
     if (error.__isApiError) {
       const resp = new Error({
         title: error.title,

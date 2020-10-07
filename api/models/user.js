@@ -4,7 +4,7 @@ const {
 const JsonApiModel = require('base/jsonApiModel');
 
 class User extends JsonApiModel {
-  attributes = ['id', 'name', 'email', 'verified']
+  static attributes = ['id', 'name', 'email', 'verified']
 
   static associate(models) {
     // define association here

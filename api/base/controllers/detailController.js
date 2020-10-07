@@ -1,4 +1,3 @@
-const Fastify = require('fastify');
 const BaseController = require('./baseController');
 
 class BaseDetailController extends BaseController {
