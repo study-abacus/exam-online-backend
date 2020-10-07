@@ -4,7 +4,9 @@ const Schema = require('./schema');
 module.exports = async (app, opts) => {
   app.post(
     '/login',
-    Schema.loginSchema,
+    {
+      schema: Schema.loginSchema
+    },
     Controller.LOGIN(app)
   )
 }

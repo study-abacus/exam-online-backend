@@ -16,11 +16,13 @@
     "fastify": "^3.3.0",
     "fastify-auth": "^1.0.1",
     "fastify-autoload": "^3.0.9",
+    "fastify-cors": "^4.1.0",
     "fastify-plugin": "^2.3.4",
     "jsonapi-serializer": "^3.6.6",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.3.3",
     "sequelize": "^6.3.5",
-    "sequelize-cli": "^6.2.0"
+    "sequelize-cli": "^6.2.0",
+    "uuid": "^8.3.1"
   }
 }

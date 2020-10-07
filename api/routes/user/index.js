@@ -1,9 +1,13 @@
 const Controllers = require('./controllers');
 const Schema = require('./schema');
+const LoginRequired = require('hooks/login-required');
 
 module.exports = async (app, opts) => {
   app.get(
     '/me',
+    {
+      preHandler: LoginRequired
+    },
     Controllers.UserDetailController.asHandler('getMe')
   )
   app.get(
@@ -12,7 +16,9 @@ module.exports = async (app, opts) => {
   )
   app.post(
     '/',
-    Schema.postSchema,
+    {
+      schema: Schema.postSchema
+    },
     Controllers.UserDetailController.asHandler('post')
   )
 }

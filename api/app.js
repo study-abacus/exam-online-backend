@@ -1,4 +1,5 @@
 const Fastify = require('fastify');
+const FastifyCors = require('fastify-cors');
 const Autoload = require('fastify-autoload');
 const path = require('path');
 const config = require('config');
@@ -10,6 +11,10 @@ const app = Fastify({
 })
 
 app
+  .register(FastifyCors, {
+    origin: ['http://localhost:4200'],
+    credentials: true
+  })
   .register(Autoload, {
     dir: path.join(__dirname, 'plugins'),
     options: {}
@@ -22,8 +27,6 @@ app
     }
   })
   .setErrorHandler((error, request, reply) => {
-    console.log(error)
-
     if (error.__isApiError) {
       const resp = new Error({
         title: error.title,

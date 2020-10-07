@@ -1,4 +1,5 @@
 const DB = require('models');
+const { v4 } = require('uuid');
 const { compare2hash } = require('utils/password')
 
 class AuthenticationService {
@@ -15,6 +16,7 @@ class AuthenticationService {
   async authenticate(email, password) {
     const userLocal = await DB.userLocals.findOne({
       include: {
+        attributes: ['id', 'name', 'email'],
         model: DB.users,
         where: {
           email
@@ -23,9 +25,10 @@ class AuthenticationService {
       }
     })
 
-    if (await compare2hash(password, userLocal.passwordHash)) {
+    if (userLocal && await compare2hash(password, userLocal.passwordHash)) {
       return {
-        jwt: this._generateJwt(userLocal.user)
+        jwt: this._generateJwt(userLocal.user),
+        refresh_token: v4()
       }
     }
 
