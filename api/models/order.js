@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false
     },
     razorpayOrderId: {
-      type: DataTypes.BIGINT
+      type: DataTypes.STRING
     }
   }, {
     sequelize,

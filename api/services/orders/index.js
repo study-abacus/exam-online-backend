@@ -8,11 +8,13 @@ const { toBase64 } = require('utils/base64');
 
 class OrdersService {
   constructor(app) {
+    const token = toBase64(`${config.RAZORPAY.ID}:${config.RAZORPAY.SECRET}`)
+
     this._app = app;
     this._axios = axios.create({
       baseURL: 'https://api.razorpay.com/v1/',
       headers: {
-        'Authorization': toBase64(`${config.RAZORPAY.ID}:${config.RAZORPAY.SECRET}`)
+        'Authorization': `Basic ${token}`
       }
     })
   }
