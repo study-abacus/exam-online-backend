@@ -16,7 +16,7 @@ class JsonApiModel extends Model {
   }
 
   toJsonApiPayload() {
-    const serializer = new Serializer(this.constructor.name, this.serializerOpts)
+    const serializer = new Serializer(this.constructor.name, this.constructor.serializerOpts)
     return serializer.serialize(this)
   }
 

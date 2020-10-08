@@ -7,8 +7,22 @@ class BaseDetailController extends BaseController {
     return instance.toJsonApiPayload()
   }
 
+  generateWhereClause() {
+    return {}
+  }
+
+  getObject() {
+    return this.model.findOne({
+      where: {
+        id: this.request.params.id,
+        ...this.generateWhereClause()
+      }
+    })
+  }
+
   async get() {
-    const instance = await this.model.findByPk(this.request.params.id)
+    const instance = await this.getObject();
+    
     if (!instance) {
       return this.response.callNotFound()
     }

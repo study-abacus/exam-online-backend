@@ -10,5 +10,9 @@ module.exports = {
     host: process.env.DB_HOST || '127.0.0.1',
     dialect: "postgres",
     logging: process.env.DB_LOGGING || console.log
+  },
+  RAZORPAY: {
+    ID: process.env.RAZORPAY_ID || 'rzp_test_Ou4rWUqLrEoS8l',
+    SECRET: process.env.RAZORPAY_SECRET || 'vdfLK7y3YsLuhKfrcn7Bxo40'
   }
 }

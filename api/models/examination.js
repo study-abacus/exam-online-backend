@@ -4,7 +4,7 @@ const {
 const JsonApiModel = require('base/jsonApiModel');
 
 class Examination extends JsonApiModel {
-  static attributes = ['id', 'title', 'description', 'primaryPrice', 'secondaryPrice']
+  static attributes = ['id', 'title', 'description', 'primaryPrice', 'secondaryPrice', 'start', 'registrationEnd']
 
   static associate(models) {
     // define association here
@@ -28,6 +28,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     secondaryPrice: {
       type: DataTypes.BIGINT,
+      allowNull: false
+    },
+    start: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    registrationEnd: {
+      type: DataTypes.DATE,
       allowNull: false
     }
   }, {

@@ -1,10 +1,16 @@
 const DB = require('models');
+const ApiError = require('base/error');
 
 module.exports = {
   JWT: async (app, token) => {
-    const payload = app.decodeJwt(token)
-    const user = await DB.users.findByPk(payload.user.id)
-
-    return user
+    try {
+      const payload = app.decodeJwt(token)
+      const user = await DB.users.findByPk(payload.user.id)
+      return user
+    } catch (err) {
+      throw new ApiError({
+        title: 'JWT expired or Invalid'
+      }, 401)
+    }
   }
 }

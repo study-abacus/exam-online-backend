@@ -1,10 +1,12 @@
 class BaseController {
   constructor(
     request,
-    response
+    response,
+    app
   ) {
     this.request = request;
     this.response = response;
+    this.app = app;
   }
 
   async get() {
@@ -20,9 +22,9 @@ class BaseController {
     throw new Error('Not Implemented');
   }
 
-  static asHandler(method) {
+  static asHandler(method, app) {
     return (request, response) => {
-      const controller = new this(request, response)
+      const controller = new this(request, response, app)
       return controller[method]()
     }
   }

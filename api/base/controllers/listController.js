@@ -1,7 +1,30 @@
+const Sequelize = require('sequelize');
 const BaseController = require('./baseController');
 
 class BaseDetailController extends BaseController {
   model = null;
+
+  _opsMap = {
+    '$iLike': Sequelize.Op.iLike,
+    '$gt': Sequelize.Op.gt
+  }
+  _processOperations(query) {
+    const keyValues = Object.keys(query).map(key => {
+      let newKey = key
+      if (key.startsWith('$')) {
+        newKey = this._opsMap[key]
+      } 
+
+      if (query[key] instanceof Object && !Array.isArray(query[key])) {
+        query[key] = this._processOperations(query[key])
+      }
+
+      return {
+        [newKey]: query[key]
+      };
+    });
+    return Object.assign({}, ...keyValues);
+  }
 
   async serialize(instances) {
     return this.model.listToJsonApiPayload(instances)
@@ -30,14 +53,20 @@ class BaseDetailController extends BaseController {
     }
   }
 
-  async generateWhereClause() {
-    return this.request.query || {}
+  generateWhereClause() {
+    const query = this.request.query.filter || {}
+
+    return this._processOperations(query)
+  }
+
+  getObjectsAndCount() {
+    return this.model.findAndCountAll({
+      where: this.generateWhereClause()
+    })
   }
 
   async get() {
-    const { count, rows: instances} = await this.model.findAndCountAll({
-      where: await this.generateWhereClause()
-    })
+    const { count, rows: instances} = await this.getObjectsAndCount()
     instances.pagination = this.generatePaginationObject(count)
     
     return this.serialize(instances)
