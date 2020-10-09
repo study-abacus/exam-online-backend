@@ -19,17 +19,13 @@ const postCaptureSchema = {
     type: 'object',
     required: [
       'razorpay_payment_id',
-      'razorpay_order_id',
-      'razorpay_signature'
+      'razorpay_order_id'
     ],
     properties: {
       razorpay_payment_id: {
         type: 'string'
       },
       razorpay_order_id: {
-        type: 'string'
-      },
-      razorpay_signature: {
         type: 'string'
       }
     }

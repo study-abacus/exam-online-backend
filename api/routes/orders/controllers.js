@@ -1,5 +1,6 @@
 const BaseDetailController = require('base/controllers/detailController');
 const DB = require('models');
+const { enrollInExaminations } = require('./utils');
 
 class OrdersDetailController extends BaseDetailController {
   model = DB.orders
@@ -36,20 +37,25 @@ class OrdersDetailController extends BaseDetailController {
     const _ordersService = this.app.getService('orders')
     let order = await this.getObject();
     const {
-      razorpay_payment_id,
-      razorpay_signature
+      razorpay_payment_id
     } = this.request.body
 
     await _ordersService.captureOrder(
       razorpay_payment_id, 
-      order.id,
-      razorpay_signature
+      order.id
     )
 
-    // fetch updated object
-    order = await this.getObject();
+    try {
+      // fetch updated object
+      order = await this.getObject();
+  
+      enrollInExaminations(order.examinations, this.request.user.id)
 
-    return this.serialize(order);
+      return this.serialize(order);
+    } catch (err) {
+      await _ordersService.refundPayment(razorpay_payment_id, order.id)
+      throw err
+    }
   }
 }
 

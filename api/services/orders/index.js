@@ -67,6 +67,14 @@ class OrdersService {
     return order
   }
 
+  async refundPayment(paymentId, orderId) {
+    const order = await DB.orders.findByPk(orderId)
+
+    return this._axios.post(`payments/${paymentId}/refund`, {
+      amount: order.amount
+    })
+  }
+
   async captureOrder(paymentId, orderId, razorpaySignature) {
     const order = await DB.orders.findOne({
       id: orderId,
@@ -79,11 +87,11 @@ class OrdersService {
       }, 404)
     }
 
-    if (!verifyRazorpaySignature(order.razorpayOrderId, paymentId, razorpaySignature)) {
+    /*if (!verifyRazorpaySignature(order.razorpayOrderId, paymentId, razorpaySignature)) {
       throw new ApiError({
         title: 'Invalid Signature'
       }, 400)
-    }
+    }*/
 
     const resp = await this._axios.post(`payments/${paymentId}/capture`, {
       amount: order.amount,
