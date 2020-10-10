@@ -1,4 +1,4 @@
-const BaseController = require('./baseController');
+const BaseController = require('./modelController');
 
 class BaseDetailController extends BaseController {
   model = null;
@@ -7,16 +7,13 @@ class BaseDetailController extends BaseController {
     return instance.toJsonApiPayload()
   }
 
-  generateWhereClause() {
-    return {}
-  }
-
   getObject() {
     return this.model.findOne({
       where: {
         id: this.request.params.id,
         ...this.generateWhereClause()
-      }
+      },
+      include: this.generateIncludeClause()
     })
   }
 

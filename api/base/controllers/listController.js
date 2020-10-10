@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const BaseController = require('./baseController');
+const BaseController = require('./modelController');
 
 class BaseDetailController extends BaseController {
   model = null;
@@ -61,7 +61,8 @@ class BaseDetailController extends BaseController {
 
   getObjectsAndCount() {
     return this.model.findAndCountAll({
-      where: this.generateWhereClause()
+      where: this.generateWhereClause(),
+      include: this.generateIncludeClause()
     })
   }
 

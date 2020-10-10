@@ -5,13 +5,15 @@ const { Serializer } = require('jsonapi-serializer');
 
 class JsonApiModel extends Model {
   attributes = ['id'];
+  includedConfig = {};
 
   static get serializerOpts() {
     return {
       attributes: this.attributes,
       meta: {
         pagination: records => records.pagination
-      }
+      },
+      ...this.includedConfig
     }
   }
 

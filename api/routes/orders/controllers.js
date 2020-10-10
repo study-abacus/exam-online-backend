@@ -1,6 +1,7 @@
 const BaseDetailController = require('base/controllers/detailController');
 const DB = require('models');
-const { enrollInExaminations } = require('./utils');
+const { enrollInExaminations, checkAlreadyPaid } = require('./utils');
+const ApiError = require('base/error');
 
 class OrdersDetailController extends BaseDetailController {
   model = DB.orders
@@ -22,6 +23,12 @@ class OrdersDetailController extends BaseDetailController {
   }
 
   async postOrderPaymentStart() {
+    if (await checkAlreadyPaid(this.request.user.id)) {
+      throw new ApiError({
+        title: 'Already Applied'
+      }, 400);
+    }
+
     const _ordersService = this.app.getService('orders');
     let order = await this.getObject();
 

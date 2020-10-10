@@ -2,16 +2,12 @@ const {
   Model
 } = require('sequelize');
 const JsonApiModel = require('base/jsonApiModel');
+const SerializerOpts = require('serializer-opts/order');
 
 class Order extends JsonApiModel {
-  static attributes = [
-    'id', 
-    'amount', 
-    'description', 
-    'examinations', 
-    'isPaid', 
-    'razorpayOrderId'
-  ]
+  static get serializerOpts() {
+    return SerializerOpts(this);
+  }
 
   static associate({ orders, users }) {
     orders.belongsTo(users);

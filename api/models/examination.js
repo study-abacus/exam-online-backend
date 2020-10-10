@@ -2,9 +2,12 @@ const {
   Model
 } = require('sequelize');
 const JsonApiModel = require('base/jsonApiModel');
+const SerializerOpts = require('serializer-opts/examination');
 
 class Examination extends JsonApiModel {
-  static attributes = ['id', 'title', 'description', 'primaryPrice', 'secondaryPrice', 'start', 'registrationEnd']
+  static get serializerOpts() {
+    return SerializerOpts(this);
+  }
 
   static associate(models) {
     // define association here

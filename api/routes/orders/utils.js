@@ -18,6 +18,14 @@ const enrollInExaminations = async (examinationsIds, userId) => {
   return result
 }
 
+const checkAlreadyPaid = userId => DB.orders.findOne({
+  where: {
+    userId,
+    isPaid: true
+  }
+})
+
 module.exports = {
-  enrollInExaminations
+  enrollInExaminations,
+  checkAlreadyPaid
 }

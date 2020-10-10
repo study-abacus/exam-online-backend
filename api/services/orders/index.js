@@ -77,8 +77,10 @@ class OrdersService {
 
   async captureOrder(paymentId, orderId, razorpaySignature) {
     const order = await DB.orders.findOne({
-      id: orderId,
-      isPaid: false
+      where: {
+        id: orderId,
+        isPaid: false
+      }
     })
 
     if (!order) {
