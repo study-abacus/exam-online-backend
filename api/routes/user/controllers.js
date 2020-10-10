@@ -50,7 +50,7 @@ class UserVerifyController extends BaseController {
     _emailService.sendViaTemplate(_emailService.templateMap.VERIFY_EMAIL, {
       to: this.request.user.email,
       templateData: {
-        link: config.SERVER.FRONTEND_URL + token
+        link: config.SERVER.FRONTEND_URL + '/verify/' + token
       }
     })
 
