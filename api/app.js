@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Fastify = require('fastify');
 const FastifyCors = require('fastify-cors');
 const FastifyQS = require('fastify-qs');

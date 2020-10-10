@@ -10,6 +10,17 @@ module.exports = async (app, opts) => {
     },
     Controllers.UserDetailController.asHandler('getMe')
   )
+  app.post(
+    '/me/verify',
+    {
+      preHandler: LoginRequired
+    },
+    Controllers.UserVerifyController.asHandler('post', app)
+  )
+  app.post(
+    '/verify/:token',
+    Controllers.UserVerifyController.asHandler('postToken', app)
+  )
   app.get(
     '/:id',
     Controllers.UserDetailController.asHandler('get')
