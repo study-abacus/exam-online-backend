@@ -5,7 +5,11 @@ module.exports = {
   JWT: async (app, token) => {
     try {
       const payload = app.decodeJwt(token)
-      const user = await DB.users.findByPk(payload.user.id)
+      const user = await DB.users.findByPk(payload.user.id, {
+        include: {
+          model: DB.profiles
+        }
+      })
       return user
     } catch (err) {
       throw new ApiError({
