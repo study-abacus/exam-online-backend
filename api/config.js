@@ -2,7 +2,7 @@ module.exports = {
   SERVER: {
     PORT: process.env.PORT || 6969,
     SECRET: process.env.APP_SECRET || 'abcd',
-    FRONTEND_URL: process.FRONTEND_URL || 'http://localhost:4200'
+    FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:4200'
   },
   DB: {
     username: process.env.DB_USER || 'champ',
