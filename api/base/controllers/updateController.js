@@ -4,6 +4,13 @@ const { removeNonEditableAttrs } = require('./utils');
 class BaseUpdateController extends BaseController {
   nonEditableAttrs = []
 
+  get _nonEditableAttrs() {
+    return [
+      ...this.nonEditableAttrs,
+      'id'
+    ]
+  }
+
   getObject() {
     return this.model.findByPk(this.request.params.id);
   }
@@ -16,7 +23,7 @@ class BaseUpdateController extends BaseController {
     }
 
     let obj = await this.deserialize(this.request.body);
-    obj = removeNonEditableAttrs(this.nonEditableAttrs, obj);
+    obj = removeNonEditableAttrs(this._nonEditableAttrs, obj);
 
     await this.beforeUpdate(obj);
     await this.model.update(obj, {
