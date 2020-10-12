@@ -14,7 +14,7 @@ const getService = app => name => {
     return service;
   } catch (err) {
     console.log(err)
-    if (err.code !== 'MODULE_NOT_FOUND') {
+    if (err.code === 'MODULE_NOT_FOUND') {
       throw new Error(`Service '${name}' not found`);
     }
     throw err
