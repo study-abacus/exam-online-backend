@@ -43,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
     city: {
       type: DataTypes.STRING
     },
+    country: {
+      type: DataTypes.STRING,
+      defaultValue: 'India'
+    },
     currentCourse: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       validate: {

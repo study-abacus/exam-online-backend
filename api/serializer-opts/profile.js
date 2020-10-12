@@ -7,6 +7,7 @@ module.exports = () => ({
     'contact',
     'address',
     'city',
+    'country',
     'currentCourse',
     'currentLevel'
   ]
