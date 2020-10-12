@@ -20,6 +20,19 @@ class OrdersService {
   }
 
   async createOrder(examinationIds, userId) {
+    const order = await DB.orders.findOne({
+      where: {
+        userId,
+        isPaid: true
+      }
+    });
+
+    if (order) {
+      throw new ApiError({
+        title: 'Application already exists'
+      }, 400);
+    }
+
     await isExaminationIdsCorrect(examinationIds);
 
     const examinations = await DB.examinations.findAll({
