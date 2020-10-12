@@ -25,6 +25,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '',
       allowNull: false
     },
+    type: {
+      type: DataTypes.ENUM(DataTypes.STRING),
+      values: ['english', 'vedic-maths', 'abacus'],
+      allowNull: false
+    },
     primaryPrice: {
       type: DataTypes.BIGINT,
       allowNull: false
