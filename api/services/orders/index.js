@@ -29,6 +29,22 @@ class OrdersService {
         }
       }
     });
+
+    // Custom checks because why choose life?
+    if (examinations.length > 2) {
+      throw new ApiError({
+        title: 'Only 2 examinations allowed'
+      }, 400)
+    }
+    if (
+      examinations.length == 2 &&
+      (examinations[0].type !== 'english' && examinations[1].type !== 'english')
+    ) {
+      throw new ApiError({
+        title: 'Choose appropriate exam combinations'
+      }, 400)
+    }
+
     const amount = examinations.reduce((acc, curr, i) => acc + (i === 0 ? +curr.primaryPrice : +curr.secondaryPrice), 0);
 
     const order = await DB.orders.create({
