@@ -1,5 +1,6 @@
 const BaseController = require('base/controllers/baseController');
 const BaseDetailController = require('base/controllers/detailController');
+const BaseUpdateController = require('base/controllers/updateController');
 const DB = require('models');
 const config = require('config');
 const ApiError = require('base/error');
@@ -41,6 +42,18 @@ class UserDetailController extends BaseDetailController {
   }
 }
 
+class UserUpdateController extends BaseUpdateController {
+  model = DB.users
+  nonEditableAttrs = [
+    'email',
+    'verified'
+  ]
+
+  getObject() {
+    return this.model.findByPk(this.request.user.id);
+  }
+}
+
 class UserVerifyController extends BaseController {
   async post() {
     const _emailService = this.app.getService('email');
@@ -69,5 +82,6 @@ class UserVerifyController extends BaseController {
 
 module.exports = {
   UserDetailController,
-  UserVerifyController
+  UserVerifyController,
+  UserUpdateController
 }

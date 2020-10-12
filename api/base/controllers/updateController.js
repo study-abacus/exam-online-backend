@@ -1,19 +1,25 @@
 const BaseController = require('./createController');
+const { removeNonEditableAttrs } = require('./utils');
 
 class BaseUpdateController extends BaseController {
+  nonEditableAttrs = []
+
+  getObject() {
+    return this.model.findByPk(this.request.params.id);
+  }
+
   async patch() {
-    const instance = await this.model.findByPk(this.request.params.id);
+    const instance = await this.getObject();
 
     if (!instance) {
       return this.response.callNotFound();
     }
 
-    const obj = await this.deserialize(this.request.body)
+    let obj = await this.deserialize(this.request.body);
+    obj = removeNonEditableAttrs(this.nonEditableAttrs, obj);
 
     await this.beforeUpdate(obj);
-    await this.model.update({
-      ...obj
-    }, {
+    await this.model.update(obj, {
       where: {
         id: instance.id
       }

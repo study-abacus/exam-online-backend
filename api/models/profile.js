@@ -4,6 +4,8 @@ const {
 const JsonApiModel = require('base/jsonApiModel');
 const SerializerOpts = require('serializer-opts/profile');
 
+const AVAILABLE_COURSES = ['Abacus', 'Vedic Maths', 'English'];
+
 class Profile extends JsonApiModel {
   static get serializerOpts() {
     return SerializerOpts(this);
@@ -28,6 +30,34 @@ module.exports = (sequelize, DataTypes) => {
     },
     class: {
       type: DataTypes.STRING,
+    },
+    guardianName: {
+      type: DataTypes.STRING
+    },
+    contact: {
+      type: DataTypes.STRING
+    },
+    address: {
+      type: DataTypes.TEXT
+    },
+    city: {
+      type: DataTypes.STRING
+    },
+    currentCourse: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      validate: {
+        hasValidCourse: value => {
+          if (!value) return value
+
+          value.forEach(val => {
+            if (!AVAILABLE_COURSES.includes(val)){
+              throw new Error(`Unidentified course ${val}`);
+            }
+          })
+
+          return value
+        }
+      }
     },
     currentLevel: {
       type: DataTypes.INTEGER

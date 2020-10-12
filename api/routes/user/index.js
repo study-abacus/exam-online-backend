@@ -10,6 +10,13 @@ module.exports = async (app, opts) => {
     },
     Controllers.UserDetailController.asHandler('getMe')
   )
+  app.patch(
+    '/me',
+    {
+      preHandler: LoginRequired
+    },
+    Controllers.UserUpdateController.asHandler('patch')
+  )
   app.post(
     '/me/verify',
     {

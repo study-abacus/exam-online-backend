@@ -3,6 +3,11 @@ module.exports = () => ({
     'id',
     'school',
     'class',
+    'guardianName',
+    'contact',
+    'address',
+    'city',
+    'currentCourse',
     'currentLevel'
   ]
 })
