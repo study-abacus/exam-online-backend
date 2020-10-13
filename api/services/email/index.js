@@ -14,10 +14,12 @@ class EmailService {
 
   sendViaTemplate(templateId, {
     to,
-    templateData
+    templateData,
+    subject
   }) {
     return sgMail.send({
       templateId,
+      subject,
       to,
       from: 'info@studyabacus.com',
       dynamic_template_data: templateData

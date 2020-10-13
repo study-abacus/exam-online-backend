@@ -61,6 +61,7 @@ class UserVerifyController extends BaseController {
 
     const token = await _verifyService.createVerificationRequest(this.request.user);
     _emailService.sendViaTemplate(_emailService.templateMap.VERIFY_EMAIL, {
+      subject: 'Study Abacus Email Verification',
       to: this.request.user.email,
       templateData: {
         link: config.SERVER.FRONTEND_URL + '/verify/' + token
