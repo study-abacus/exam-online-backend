@@ -1,4 +1,4 @@
-# exam-online-frontend
+# exam-online-backend
 
 This README outlines the details of collaborating on this Node.js application.
 A short introduction of this app could easily go here.
