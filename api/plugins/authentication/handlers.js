@@ -7,7 +7,10 @@ module.exports = {
       const payload = app.decodeJwt(token)
       const user = await DB.users.findByPk(payload.user.id, {
         include: {
-          model: DB.profiles
+          model: DB.profiles,
+          include: {
+            model: DB.teachers
+          }
         }
       })
       return user

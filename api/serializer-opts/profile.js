@@ -1,3 +1,5 @@
+const TeacherSerializerOpts = require('./teacher');
+
 module.exports = () => ({
   attributes: [
     'id',
@@ -9,6 +11,12 @@ module.exports = () => ({
     'city',
     'country',
     'currentCourse',
-    'currentLevel'
-  ]
+    'currentLevel',
+    'otherTeacher',
+    'teacher'
+  ],
+  teacher: {
+    ref: 'id',
+    ...TeacherSerializerOpts()
+  }
 })
