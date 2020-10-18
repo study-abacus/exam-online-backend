@@ -11,6 +11,10 @@ class Profile extends JsonApiModel {
     return SerializerOpts(this);
   }
 
+  static get deserializerOpts() {
+    return SerializerOpts(this, 'deserialize');
+  }
+
   static associate({ users, profiles, teachers }) {
     profiles.belongsTo(users);
     profiles.belongsTo(teachers);
@@ -37,8 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     otherTeacher: {
-      type: DataTypes.STRING,
-      defaultValue: ''
+      type: DataTypes.STRING
     },
     contact: {
       type: DataTypes.STRING

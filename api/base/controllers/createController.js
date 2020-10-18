@@ -4,10 +4,11 @@ const { Deserializer } = require('jsonapi-serializer');
 class BaseCreateController extends BaseController {
   async deserialize(payload) {
     const deserializer = new Deserializer({
-      keyForAttribute: 'camelCase'
+      keyForAttribute: 'camelCase',
+      ...this.model.deserializerOpts
     });
 
-    const obj = deserializer.deserialize(payload);
+    const obj = await deserializer.deserialize(payload);
 
     Object.keys(obj).forEach(key => {
       if (
