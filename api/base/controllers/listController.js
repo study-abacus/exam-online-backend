@@ -59,10 +59,15 @@ class BaseDetailController extends BaseController {
     return this._processOperations(query)
   }
 
+  generateOrderClause() {
+    return []
+  }
+
   getObjectsAndCount() {
     return this.model.findAndCountAll({
       where: this.generateWhereClause(),
-      include: this.generateIncludeClause()
+      include: this.generateIncludeClause(),
+      order: this.generateOrderClause()
     })
   }
 

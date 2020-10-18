@@ -3,6 +3,12 @@ const DB = require('models');
 
 class TeacherListController extends BaseListController {
   model = DB.teachers
+
+  generateOrderClause() {
+    return [
+      ['name', 'ASC']
+    ]
+  }
 }
 
 module.exports = {
