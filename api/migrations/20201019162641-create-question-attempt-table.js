@@ -22,7 +22,6 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'questions',
-          defaultValue: '',
           key: 'id'
         }
       },
