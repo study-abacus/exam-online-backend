@@ -7,19 +7,19 @@ module.exports = {
         type: Sequelize.BIGINT,
         references: {
           model: 'teachers',
-          key: 'id'
-        }
+          key: 'id',
+        },
       }),
       queryInterface.addColumn('profiles', 'otherTeacher', {
-        type: Sequelize.STRING
-      })
-    ])
+        type: Sequelize.STRING,
+      }),
+    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.removeColumn('profiles', 'teacherId'),
-      queryInterface.removeColumn('profiles', 'otherTeacher')
-    ])
-  }
+      queryInterface.removeColumn('profiles', 'otherTeacher'),
+    ]);
+  },
 };

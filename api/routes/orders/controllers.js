@@ -4,13 +4,13 @@ const { enrollInExaminations, checkAlreadyPaid } = require('./utils');
 const ApiError = require('base/error');
 
 class OrdersDetailController extends BaseDetailController {
-  model = DB.orders
+  model = DB.orders;
 
   generateWhereClause() {
-    const user = this.request.user
+    const user = this.request.user;
     return {
-      userId: user.id
-    }
+      userId: user.id,
+    };
   }
 
   async post() {
@@ -24,9 +24,12 @@ class OrdersDetailController extends BaseDetailController {
 
   async postOrderPaymentStart() {
     if (await checkAlreadyPaid(this.request.user.id)) {
-      throw new ApiError({
-        title: 'Already Applied'
-      }, 400);
+      throw new ApiError(
+        {
+          title: 'Already Applied',
+        },
+        400,
+      );
     }
 
     const _ordersService = this.app.getService('orders');
@@ -41,31 +44,26 @@ class OrdersDetailController extends BaseDetailController {
   }
 
   async postPaymentCapture() {
-    const _ordersService = this.app.getService('orders')
+    const _ordersService = this.app.getService('orders');
     let order = await this.getObject();
-    const {
-      razorpay_payment_id
-    } = this.request.body
+    const { razorpay_payment_id } = this.request.body;
 
-    await _ordersService.captureOrder(
-      razorpay_payment_id, 
-      order.id
-    )
+    await _ordersService.captureOrder(razorpay_payment_id, order.id);
 
     try {
       // fetch updated object
       order = await this.getObject();
-  
-      enrollInExaminations(order.examinations, this.request.user.id)
+
+      enrollInExaminations(order.examinations, this.request.user.id);
 
       return this.serialize(order);
     } catch (err) {
-      await _ordersService.refundPayment(razorpay_payment_id, order.id)
-      throw err
+      await _ordersService.refundPayment(razorpay_payment_id, order.id);
+      throw err;
     }
   }
 }
 
 module.exports = {
-  OrdersDetailController
-}
+  OrdersDetailController,
+};

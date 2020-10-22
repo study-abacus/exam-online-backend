@@ -6,39 +6,33 @@ module.exports = async (app, opts) => {
   app.get(
     '/me',
     {
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.UserDetailController.asHandler('getMe')
-  )
+    Controllers.UserDetailController.asHandler('getMe'),
+  );
   app.patch(
     '/me',
     {
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.UserUpdateController.asHandler('patch')
-  )
+    Controllers.UserUpdateController.asHandler('patch'),
+  );
   app.post(
     '/me/verify',
     {
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.UserVerifyController.asHandler('post', app)
-  )
-  app.post(
-    '/verify/:token',
-    Controllers.UserVerifyController.asHandler('postToken', app)
-  )
-  app.get(
-    '/:id',
-    Controllers.UserDetailController.asHandler('get')
-  )
+    Controllers.UserVerifyController.asHandler('post', app),
+  );
+  app.post('/verify/:token', Controllers.UserVerifyController.asHandler('postToken', app));
+  app.get('/:id', Controllers.UserDetailController.asHandler('get'));
   app.post(
     '/',
     {
-      schema: Schema.postSchema
+      schema: Schema.postSchema,
     },
-    Controllers.UserDetailController.asHandler('post')
-  )
-}
+    Controllers.UserDetailController.asHandler('post'),
+  );
+};
 
-module.exports.autoPrefix = '/users'
+module.exports.autoPrefix = '/users';

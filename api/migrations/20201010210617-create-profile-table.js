@@ -7,10 +7,10 @@ module.exports = {
         type: Sequelize.BIGINT,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       school: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       class: {
         type: Sequelize.STRING,
@@ -23,8 +23,8 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'users',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -33,11 +33,11 @@ module.exports = {
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
-      }
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.dropTable('profiles');
-  }
+  },
 };

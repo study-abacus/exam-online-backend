@@ -4,36 +4,36 @@ const BaseUpdateController = require('base/controllers/updateController');
 const DB = require('models');
 
 class ProfileDetailController extends BaseDetailController {
-  model = DB.profiles
+  model = DB.profiles;
 
   generateWhereClause() {
     const whereClause = super.generateWhereClause();
 
     return {
       ...whereClause,
-      userId: this.request.user.id
-    }
+      userId: this.request.user.id,
+    };
   }
 }
 
 class ProfileCreateController extends BaseCreateController {
-  model = DB.profiles
+  model = DB.profiles;
 
   beforeCreate(model) {
-    model.userId = this.request.user.id
+    model.userId = this.request.user.id;
   }
 }
 
 class ProfileUpdateController extends BaseUpdateController {
-  model = DB.profiles
+  model = DB.profiles;
 
   beforeUpdate(model) {
-    model.userId = this.request.user.id
+    model.userId = this.request.user.id;
   }
 }
 
 module.exports = {
   ProfileDetailController,
   ProfileCreateController,
-  ProfileUpdateController
-}
+  ProfileUpdateController,
+};

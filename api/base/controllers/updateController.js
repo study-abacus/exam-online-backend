@@ -2,13 +2,10 @@ const BaseController = require('./createController');
 const { removeNonEditableAttrs } = require('./utils');
 
 class BaseUpdateController extends BaseController {
-  nonEditableAttrs = []
+  nonEditableAttrs = [];
 
   get _nonEditableAttrs() {
-    return [
-      ...this.nonEditableAttrs,
-      'id'
-    ]
+    return [...this.nonEditableAttrs, 'id'];
   }
 
   getObject() {
@@ -28,16 +25,16 @@ class BaseUpdateController extends BaseController {
     await this.beforeUpdate(obj);
     await this.model.update(obj, {
       where: {
-        id: instance.id
-      }
-    })
-    
-    const result = await this.model.findByPk(instance.id, {
-      include: this.generateIncludeClause()
-    })
-    await this.afterUpdate(result)
+        id: instance.id,
+      },
+    });
 
-    return this.serialize(result)
+    const result = await this.model.findByPk(instance.id, {
+      include: this.generateIncludeClause(),
+    });
+    await this.afterUpdate(result);
+
+    return this.serialize(result);
   }
 
   async beforeUpdate() {}

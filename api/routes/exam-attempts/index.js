@@ -5,17 +5,17 @@ module.exports = async (app, opts) => {
   app.get(
     '/',
     {
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.ExamAttemptListController.asHandler('get')
-  )
+    Controllers.ExamAttemptListController.asHandler('get'),
+  );
   app.get(
     '/:id',
     {
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.ExamAttemptDetailController.asHandler('get')
-  )
-}
+    Controllers.ExamAttemptDetailController.asHandler('get'),
+  );
+};
 
-module.exports.autoPrefix = '/exam-attempts'
+module.exports.autoPrefix = '/exam-attempts';

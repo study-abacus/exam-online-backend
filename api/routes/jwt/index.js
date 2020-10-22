@@ -5,10 +5,10 @@ module.exports = async (app, opts) => {
   app.post(
     '/login',
     {
-      schema: Schema.loginSchema
+      schema: Schema.loginSchema,
     },
-    Controller.LOGIN(app)
-  )
-}
+    Controller.LOGIN(app),
+  );
+};
 
-module.exports.autoPrefix = '/jwt'
+module.exports.autoPrefix = '/jwt';

@@ -2,21 +2,16 @@ const QuestionSerializerOpts = require('./question');
 const ExamAttemptSerializerOpts = require('./exam-attempts');
 
 module.exports = () => ({
-  attributes: [
-    'id',
-    'answer',
-    'question',
-    'examAttempt'
-  ],
+  attributes: ['id', 'answer', 'question', 'examAttempt'],
   question: {
     ref: 'id',
-    ...QuestionSerializerOpts()
+    ...QuestionSerializerOpts(),
   },
   examAttempt: {
     ref: 'id',
-    ...ExamAttemptSerializerOpts()
+    ...ExamAttemptSerializerOpts(),
   },
   meta: {
-    pagination: records => records.pagination
-  }
-})
+    pagination: (records) => records.pagination,
+  },
+});

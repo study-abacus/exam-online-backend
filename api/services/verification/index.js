@@ -11,19 +11,22 @@ class VerificationService {
 
   async createVerificationRequest(user) {
     if (user.verified) {
-      throw new ApiError({
-        title: 'User already verified'
-      }, 400);
+      throw new ApiError(
+        {
+          title: 'User already verified',
+        },
+        400,
+      );
     }
 
     const token = v4();
     const request = await DB.verifyRequests.create({
       token,
       validTill: moment().add(10, 'minutes').toISOString(),
-      userId: user.id
+      userId: user.id,
     });
 
-    return token
+    return token;
   }
 
   async verifyUser(token) {
@@ -31,24 +34,30 @@ class VerificationService {
       where: {
         token,
         validTill: {
-          [Sequelize.Op.gt]: moment().toISOString()
-        }
-      }
-    })
+          [Sequelize.Op.gt]: moment().toISOString(),
+        },
+      },
+    });
 
     if (!request) {
-      throw new ApiError({
-        title: 'Invalid Token'
-      }, 400)
+      throw new ApiError(
+        {
+          title: 'Invalid Token',
+        },
+        400,
+      );
     }
 
-    await DB.users.update({
-      verified: true
-    }, {
-      where: {
-        id: request.userId
-      }
-    })
+    await DB.users.update(
+      {
+        verified: true,
+      },
+      {
+        where: {
+          id: request.userId,
+        },
+      },
+    );
   }
 }
 

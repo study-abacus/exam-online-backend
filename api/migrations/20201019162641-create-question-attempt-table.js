@@ -7,40 +7,40 @@ module.exports = {
         type: Sequelize.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
+        allowNull: false,
       },
       examAttemptId: {
         type: Sequelize.BIGINT,
         allowNull: false,
         references: {
           model: 'examAttempts',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       questionId: {
         type: Sequelize.BIGINT,
         allowNull: false,
         references: {
           model: 'questions',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       answer: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       },
       updatedAt: {
         type: Sequelize.DATE,
-        allowNull: false
-      }
-    })
+        allowNull: false,
+      },
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.dropTable('questionAttempts');
-  }
+  },
 };

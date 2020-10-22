@@ -1,13 +1,6 @@
 module.exports = () => ({
-  attributes: [
-    'id', 
-    'amount', 
-    'description', 
-    'examinations', 
-    'isPaid', 
-    'razorpayOrderId'
-  ],
+  attributes: ['id', 'amount', 'description', 'examinations', 'isPaid', 'razorpayOrderId'],
   meta: {
-    pagination: records => records.pagination
-  }
-})
+    pagination: (records) => records.pagination,
+  },
+});

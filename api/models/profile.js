@@ -1,6 +1,4 @@
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 const JsonApiModel = require('base/jsonApiModel');
 const SerializerOpts = require('serializer-opts/profile');
 
@@ -21,64 +19,67 @@ class Profile extends JsonApiModel {
     users.hasOne(profiles);
     teachers.hasMany(profiles);
   }
-};
+}
 
 module.exports = (sequelize, DataTypes) => {
-  Profile.init({
-    id: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true
-    },
-    school: {
-      type: DataTypes.STRING
-    },
-    class: {
-      type: DataTypes.STRING,
-    },
-    guardianName: {
-      type: DataTypes.STRING
-    },
-    otherTeacher: {
-      type: DataTypes.STRING
-    },
-    contact: {
-      type: DataTypes.STRING
-    },
-    address: {
-      type: DataTypes.TEXT
-    },
-    city: {
-      type: DataTypes.STRING
-    },
-    country: {
-      type: DataTypes.STRING,
-      defaultValue: 'India'
-    },
-    currentCourse: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      validate: {
-        hasValidCourse: value => {
-          if (!value) return value
+  Profile.init(
+    {
+      id: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      school: {
+        type: DataTypes.STRING,
+      },
+      class: {
+        type: DataTypes.STRING,
+      },
+      guardianName: {
+        type: DataTypes.STRING,
+      },
+      otherTeacher: {
+        type: DataTypes.STRING,
+      },
+      contact: {
+        type: DataTypes.STRING,
+      },
+      address: {
+        type: DataTypes.TEXT,
+      },
+      city: {
+        type: DataTypes.STRING,
+      },
+      country: {
+        type: DataTypes.STRING,
+        defaultValue: 'India',
+      },
+      currentCourse: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        validate: {
+          hasValidCourse: (value) => {
+            if (!value) return value;
 
-          value.forEach(val => {
-            if (!AVAILABLE_COURSES.includes(val)){
-              throw new Error(`Unidentified course ${val}`);
-            }
-          })
+            value.forEach((val) => {
+              if (!AVAILABLE_COURSES.includes(val)) {
+                throw new Error(`Unidentified course ${val}`);
+              }
+            });
 
-          return value
-        }
-      }
+            return value;
+          },
+        },
+      },
+      currentLevel: {
+        type: DataTypes.INTEGER,
+      },
     },
-    currentLevel: {
-      type: DataTypes.INTEGER
-    }
-  }, {
-    sequelize,
-    modelName: 'profiles',
-  });
+    {
+      sequelize,
+      modelName: 'profiles',
+    },
+  );
 
   return Profile;
 };

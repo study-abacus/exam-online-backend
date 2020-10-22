@@ -4,6 +4,6 @@ module.exports = () => ({
   attributes: ['id', 'name', 'email', 'verified', 'profile'],
   profile: {
     ref: 'id',
-    ...ProfileSerializerOpts()
-  }
-})
+    ...ProfileSerializerOpts(),
+  },
+});

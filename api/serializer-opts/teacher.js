@@ -1,6 +1,3 @@
 module.exports = () => ({
-  attributes: [
-    'id',
-    'name'
-  ]
-})
+  attributes: ['id', 'name'],
+});

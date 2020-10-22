@@ -4,9 +4,9 @@ module.exports = (model, type = 'serialize') => {
   if (type === 'deserialize') {
     return {
       teachers: {
-        valueForRelationship: relationship => ({ id: relationship.id })
-      }
-    }
+        valueForRelationship: (relationship) => ({ id: relationship.id }),
+      },
+    };
   }
 
   return {
@@ -22,11 +22,11 @@ module.exports = (model, type = 'serialize') => {
       'currentCourse',
       'currentLevel',
       'otherTeacher',
-      'teacher'
+      'teacher',
     ],
     teacher: {
       ref: 'id',
-      ...TeacherSerializerOpts()
-    }
-  }
-}
+      ...TeacherSerializerOpts(),
+    },
+  };
+};

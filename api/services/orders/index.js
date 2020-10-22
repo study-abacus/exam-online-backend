@@ -8,29 +8,32 @@ const { toBase64 } = require('utils/base64');
 
 class OrdersService {
   constructor(app) {
-    const token = toBase64(`${config.RAZORPAY.ID}:${config.RAZORPAY.SECRET}`)
+    const token = toBase64(`${config.RAZORPAY.ID}:${config.RAZORPAY.SECRET}`);
 
     this._app = app;
     this._axios = axios.create({
       baseURL: 'https://api.razorpay.com/v1/',
       headers: {
-        'Authorization': `Basic ${token}`
-      }
-    })
+        Authorization: `Basic ${token}`,
+      },
+    });
   }
 
   async createOrder(examinationIds, userId) {
     const prevOrder = await DB.orders.findOne({
       where: {
         userId,
-        isPaid: true
-      }
+        isPaid: true,
+      },
     });
 
     if (prevOrder) {
-      throw new ApiError({
-        title: 'Application already exists'
-      }, 400);
+      throw new ApiError(
+        {
+          title: 'Application already exists',
+        },
+        400,
+      );
     }
 
     await isExaminationIdsCorrect(examinationIds);
@@ -38,32 +41,42 @@ class OrdersService {
     const examinations = await DB.examinations.findAll({
       where: {
         id: {
-          [Sequelize.Op.in]: examinationIds
-        }
-      }
+          [Sequelize.Op.in]: examinationIds,
+        },
+      },
     });
 
     // Custom checks because why choose life?
     if (examinations.length > 2) {
-      throw new ApiError({
-        title: 'Only 2 examinations allowed'
-      }, 400)
+      throw new ApiError(
+        {
+          title: 'Only 2 examinations allowed',
+        },
+        400,
+      );
     }
     if (
       examinations.length == 2 &&
-      (examinations[0].type !== 'english' && examinations[1].type !== 'english')
+      examinations[0].type !== 'english' &&
+      examinations[1].type !== 'english'
     ) {
-      throw new ApiError({
-        title: 'Choose appropriate exam combinations'
-      }, 400)
+      throw new ApiError(
+        {
+          title: 'Choose appropriate exam combinations',
+        },
+        400,
+      );
     }
 
-    const amount = examinations.reduce((acc, curr, i) => acc + (i === 0 ? +curr.primaryPrice : +curr.secondaryPrice), 0);
+    const amount = examinations.reduce(
+      (acc, curr, i) => acc + (i === 0 ? +curr.primaryPrice : +curr.secondaryPrice),
+      0,
+    );
 
     const order = await DB.orders.create({
       amount,
       userId,
-      examinations: examinationIds
+      examinations: examinationIds,
     });
 
     return order;
@@ -75,47 +88,53 @@ class OrdersService {
         id: orderId,
         isPaid: false,
         razorpayOrderId: {
-          [Sequelize.Op.eq]: null
-        }
-      }
+          [Sequelize.Op.eq]: null,
+        },
+      },
     });
 
     if (!order) {
-      throw new ApiError({
-        title: 'Order not found'
-      }, 404)
+      throw new ApiError(
+        {
+          title: 'Order not found',
+        },
+        404,
+      );
     }
 
     const resp = await this._axios.post('orders', {
       amount: order.amount,
-      currency: 'INR'
-    })
-    order.razorpayOrderId = resp.data.id
-    await order.save()
+      currency: 'INR',
+    });
+    order.razorpayOrderId = resp.data.id;
+    await order.save();
 
-    return order
+    return order;
   }
 
   async refundPayment(paymentId, orderId) {
-    const order = await DB.orders.findByPk(orderId)
+    const order = await DB.orders.findByPk(orderId);
 
     return this._axios.post(`payments/${paymentId}/refund`, {
-      amount: order.amount
-    })
+      amount: order.amount,
+    });
   }
 
   async captureOrder(paymentId, orderId, razorpaySignature) {
     const order = await DB.orders.findOne({
       where: {
         id: orderId,
-        isPaid: false
-      }
-    })
+        isPaid: false,
+      },
+    });
 
     if (!order) {
-      throw new ApiError({
-        title: 'Order not found'
-      }, 404)
+      throw new ApiError(
+        {
+          title: 'Order not found',
+        },
+        404,
+      );
     }
 
     /*if (!verifyRazorpaySignature(order.razorpayOrderId, paymentId, razorpaySignature)) {
@@ -126,19 +145,22 @@ class OrdersService {
 
     const resp = await this._axios.post(`payments/${paymentId}/capture`, {
       amount: order.amount,
-      currency: 'INR'
-    })
+      currency: 'INR',
+    });
 
     if (resp.status !== 200) {
-      throw new ApiError({
-        title: 'Payment Failed'
-      }, 500)
+      throw new ApiError(
+        {
+          title: 'Payment Failed',
+        },
+        500,
+      );
     }
 
-    order.isPaid = true
-    await order.save()
-    
-    return order
+    order.isPaid = true;
+    await order.save();
+
+    return order;
   }
 }
 

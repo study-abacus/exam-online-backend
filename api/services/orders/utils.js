@@ -4,33 +4,33 @@ const ApiError = require('base/error');
 const crypto = require('crypto');
 const config = require('config');
 
-const isExaminationIdsCorrect = async examinationIds => {
+const isExaminationIdsCorrect = async (examinationIds) => {
   const count = await DB.examinations.count({
     where: {
       id: {
-        [Sequelize.Op.in]: examinationIds
-      }
-    }
-  })
+        [Sequelize.Op.in]: examinationIds,
+      },
+    },
+  });
 
   if (count !== examinationIds.length) {
     throw new ApiError({
-      title: 'Incorrect Examination Selected'
-    })
+      title: 'Incorrect Examination Selected',
+    });
   }
 
-  return true
-}
+  return true;
+};
 
 const verifyRazorpaySignature = (orderId, paymentId, razorpaySignature) => {
-  const hmac = crypto.createHmac('sha256', config.RAZORPAY.SECRET)
-  hmac.update(`${orderId}|${paymentId}`)
-  const hash = hmac.digest('hex')
+  const hmac = crypto.createHmac('sha256', config.RAZORPAY.SECRET);
+  hmac.update(`${orderId}|${paymentId}`);
+  const hash = hmac.digest('hex');
 
-  return hash === razorpaySignature
-}
+  return hash === razorpaySignature;
+};
 
 module.exports = {
   isExaminationIdsCorrect,
-  verifyRazorpaySignature
-}
+  verifyRazorpaySignature,
+};

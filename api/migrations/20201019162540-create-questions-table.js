@@ -7,42 +7,42 @@ module.exports = {
         type: Sequelize.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
+        allowNull: false,
       },
       title: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,
         defaultValue: '',
-        allowNull: false
+        allowNull: false,
       },
       type: {
         type: Sequelize.ENUM('number', 'text', 'paragraph'),
         defaultValue: 'number',
-        allowNull: false
+        allowNull: false,
       },
       examinationId: {
         type: Sequelize.BIGINT,
         allowNull: false,
         references: {
           model: 'examinations',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       createdAt: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       },
       updatedAt: {
         type: Sequelize.DATE,
-        allowNull: false
-      }
-    })
+        allowNull: false,
+      },
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.dropTable('questions');
-  }
+  },
 };

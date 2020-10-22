@@ -6,24 +6,24 @@ module.exports = async (app, opts) => {
   app.post(
     '/',
     {
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.ProfileCreateController.asHandler('post')
-  )
+    Controllers.ProfileCreateController.asHandler('post'),
+  );
   app.patch(
     '/:id',
     {
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.ProfileUpdateController.asHandler('patch')
-  )
+    Controllers.ProfileUpdateController.asHandler('patch'),
+  );
   app.get(
     '/:id',
-    { 
-      preHandler: LoginRequired
+    {
+      preHandler: LoginRequired,
     },
-    Controllers.ProfileDetailController.asHandler('get')
-  )
-}
+    Controllers.ProfileDetailController.asHandler('get'),
+  );
+};
 
-module.exports.autoPrefix = '/profiles'
+module.exports.autoPrefix = '/profiles';

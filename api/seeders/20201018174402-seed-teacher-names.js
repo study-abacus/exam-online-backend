@@ -44,10 +44,10 @@ module.exports = {
       { name: 'Shweta Yadav', createdAt: new Date(), updatedAt: new Date() },
       { name: 'Sonika Gupta', createdAt: new Date(), updatedAt: new Date() },
       { name: 'Sushma Kotnala', createdAt: new Date(), updatedAt: new Date() },
-      { name: 'Anjali Pal', createdAt: new Date(), updatedAt: new Date() }
-    ]
+      { name: 'Anjali Pal', createdAt: new Date(), updatedAt: new Date() },
+    ];
     return queryInterface.bulkInsert('teachers', teachers);
   },
 
-  down: async (queryInterface, Sequelize) => {}
+  down: async (queryInterface, Sequelize) => {},
 };

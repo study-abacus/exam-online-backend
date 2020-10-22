@@ -1,18 +1,15 @@
-const Controllers = require('./controllers')
+const Controllers = require('./controllers');
 const LoginRequired = require('hooks/login-required');
 
 module.exports = async (app, opts) => {
-  app.get(
-    '/',
-    Controllers.ExaminationListController.asHandler('get')
-  )
+  app.get('/', Controllers.ExaminationListController.asHandler('get'));
   app.get(
     '/:id/relationships/questions',
     {
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.RelationshipQuestionController.asHandler('get')
-  )
-}
+    Controllers.RelationshipQuestionController.asHandler('get'),
+  );
+};
 
-module.exports.autoPrefix = '/examinations'
+module.exports.autoPrefix = '/examinations';

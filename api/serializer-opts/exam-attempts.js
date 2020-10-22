@@ -2,23 +2,16 @@ const ExaminationSerializerOpts = require('./examination');
 const UserSerializerOpts = require('./user');
 
 module.exports = () => ({
-  attributes: [
-    'id',
-    'start',
-    'isSubmitted',
-    'result',
-    'examination',
-    'user'
-  ],
+  attributes: ['id', 'start', 'isSubmitted', 'result', 'examination', 'user'],
   examination: {
     ref: 'id',
-    ...ExaminationSerializerOpts()
+    ...ExaminationSerializerOpts(),
   },
   user: {
     ref: 'id',
-    ...UserSerializerOpts()
+    ...UserSerializerOpts(),
   },
   meta: {
-    pagination: records => records.pagination
-  }
-})
+    pagination: (records) => records.pagination,
+  },
+});

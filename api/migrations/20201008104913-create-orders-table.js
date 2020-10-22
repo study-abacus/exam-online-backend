@@ -7,46 +7,46 @@ module.exports = {
         type: Sequelize.BIGINT,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       amount: {
         type: Sequelize.BIGINT,
-        allowNull: false
+        allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,
         defaultValue: '',
-        allowNull: false
+        allowNull: false,
       },
       examinations: {
         type: Sequelize.ARRAY(Sequelize.BIGINT),
-        allowNull: false
+        allowNull: false,
       },
       isPaid: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue: false,
       },
       userId: {
         type: Sequelize.BIGINT,
         allowNull: false,
         references: {
           model: 'users',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
-    })
+        type: Sequelize.DATE,
+      },
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.dropTable('orders');
-  }
+  },
 };

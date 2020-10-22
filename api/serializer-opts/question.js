@@ -1,12 +1,6 @@
 module.exports = () => ({
-  attributes: [
-    'id',
-    'title',
-    'description',
-    'type',
-  ],
+  attributes: ['id', 'title', 'description', 'type'],
   meta: {
-    pagination: records => records.pagination
-  }
-})
-  
+    pagination: (records) => records.pagination,
+  },
+});

@@ -1,21 +1,18 @@
 const loginSchema = {
   body: {
     type: 'object',
-    required: [
-      'email',
-      'password'
-    ],
+    required: ['email', 'password'],
     properties: {
       email: {
-        type: 'string'
+        type: 'string',
       },
       password: {
-        type: 'string'
-      }
-    }
-  }
-}
+        type: 'string',
+      },
+    },
+  },
+};
 
 module.exports = {
-  loginSchema
-}
+  loginSchema,
+};

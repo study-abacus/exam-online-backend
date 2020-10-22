@@ -7,48 +7,48 @@ module.exports = {
         type: Sequelize.BIGINT,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       start: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       },
       isSubmitted: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
-        allowNull: false
+        allowNull: false,
       },
       result: {
-        type: Sequelize.JSON
+        type: Sequelize.JSON,
       },
       userId: {
         type: Sequelize.BIGINT,
         allowNull: false,
         references: {
           model: 'users',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       examinationId: {
         type: Sequelize.BIGINT,
         allowNull: false,
         references: {
           model: 'examinations',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
-    })
+        type: Sequelize.DATE,
+      },
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('examAttempts')
-  }
+    return queryInterface.dropTable('examAttempts');
+  },
 };

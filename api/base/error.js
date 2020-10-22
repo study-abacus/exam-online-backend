@@ -1,11 +1,7 @@
 class ApiError extends Error {
   __isApiError = true;
-  
-  constructor({
-    title,
-    code,
-    detail
-  }, statusCode = 500) {
+
+  constructor({ title, code, detail }, statusCode = 500) {
     super();
     this.title = title;
     this.code = code;

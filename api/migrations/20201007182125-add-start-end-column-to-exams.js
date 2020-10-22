@@ -5,19 +5,19 @@ module.exports = {
     return Promise.all([
       queryInterface.addColumn('examinations', 'start', {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       }),
       queryInterface.addColumn('examinations', 'registrationEnd', {
         type: Sequelize.DATE,
-        allowNull: false
-      })
-    ])
+        allowNull: false,
+      }),
+    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.removeColumn('examinations', 'start'),
-      queryInterface.removeColumn('examinations', 'registrationEnd')
-    ])
-  }
+      queryInterface.removeColumn('examinations', 'registrationEnd'),
+    ]);
+  },
 };

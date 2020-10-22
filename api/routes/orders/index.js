@@ -5,35 +5,35 @@ const schema = require('./schema');
 
 module.exports = async (app, opts) => {
   app.post(
-    '/buy', 
+    '/buy',
     {
       schema: Schema.postSchema,
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.OrdersDetailController.asHandler('post', app)
-  )
+    Controllers.OrdersDetailController.asHandler('post', app),
+  );
   app.get(
     '/:id',
     {
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.OrdersDetailController.asHandler('get')
-  )
+    Controllers.OrdersDetailController.asHandler('get'),
+  );
   app.post(
     '/:id/pay',
     {
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.OrdersDetailController.asHandler('postOrderPaymentStart', app)
-  )
+    Controllers.OrdersDetailController.asHandler('postOrderPaymentStart', app),
+  );
   app.post(
     '/:id/capture',
     {
       schema: schema.postCaptureSchema,
-      preHandler: LoginRequired
+      preHandler: LoginRequired,
     },
-    Controllers.OrdersDetailController.asHandler('postPaymentCapture', app)
-  )
-}
+    Controllers.OrdersDetailController.asHandler('postPaymentCapture', app),
+  );
+};
 
-module.exports.autoPrefix = '/orders'
+module.exports.autoPrefix = '/orders';

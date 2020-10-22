@@ -3,11 +3,11 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.addColumn('orders', 'razorpayOrderId', {
-      type: Sequelize.STRING
-    })
+      type: Sequelize.STRING,
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn('orders', 'razorpayOrderId')
-  }
+    return queryInterface.removeColumn('orders', 'razorpayOrderId');
+  },
 };

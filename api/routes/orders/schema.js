@@ -1,38 +1,33 @@
 const postSchema = {
   body: {
     type: 'object',
-    required: [
-      'examinationIds'
-    ],
+    required: ['examinationIds'],
     properties: {
       examinationIds: {
         type: 'array',
         maxItems: 2,
-        items: { type: 'integer' }
-      }
-    }
-  }
-}
+        items: { type: 'integer' },
+      },
+    },
+  },
+};
 
 const postCaptureSchema = {
   body: {
     type: 'object',
-    required: [
-      'razorpay_payment_id',
-      'razorpay_order_id'
-    ],
+    required: ['razorpay_payment_id', 'razorpay_order_id'],
     properties: {
       razorpay_payment_id: {
-        type: 'string'
+        type: 'string',
       },
       razorpay_order_id: {
-        type: 'string'
-      }
-    }
-  }
-}
+        type: 'string',
+      },
+    },
+  },
+};
 
 module.exports = {
   postSchema,
-  postCaptureSchema
-}
+  postCaptureSchema,
+};

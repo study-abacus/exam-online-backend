@@ -1,4 +1,4 @@
-const sgMail = require('@sendgrid/mail')
+const sgMail = require('@sendgrid/mail');
 const config = require('config');
 const TemplateMap = require('./template-maps');
 
@@ -12,18 +12,14 @@ class EmailService {
     return TemplateMap;
   }
 
-  sendViaTemplate(templateId, {
-    to,
-    templateData,
-    subject
-  }) {
+  sendViaTemplate(templateId, { to, templateData, subject }) {
     return sgMail.send({
       templateId,
       subject,
       to,
       from: 'info@studyabacus.com',
-      dynamic_template_data: templateData
-    })
+      dynamic_template_data: templateData,
+    });
   }
 }
 

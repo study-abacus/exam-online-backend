@@ -7,7 +7,7 @@ const ApiError = require('base/error');
 const { createUserAfterSignUp } = require('./utils');
 
 class UserDetailController extends BaseDetailController {
-  model = DB.users
+  model = DB.users;
 
   async getMe() {
     const user = this.request.user;
@@ -19,21 +19,27 @@ class UserDetailController extends BaseDetailController {
     const { name, email, password, passwordRepeat } = this.request.body;
 
     if (password !== passwordRepeat) {
-      throw new ApiError({
-        title: 'Password do not match'
-      }, 400);
+      throw new ApiError(
+        {
+          title: 'Password do not match',
+        },
+        400,
+      );
     }
 
     const previousUser = await this.model.findOne({
       where: {
-        email
-      }
-    })
+        email,
+      },
+    });
 
     if (previousUser) {
-      throw new ApiError({
-        title: 'Email ID already exist'
-      }, 400);
+      throw new ApiError(
+        {
+          title: 'Email ID already exist',
+        },
+        400,
+      );
     }
 
     const user = await createUserAfterSignUp({ name, email, password });
@@ -43,11 +49,8 @@ class UserDetailController extends BaseDetailController {
 }
 
 class UserUpdateController extends BaseUpdateController {
-  model = DB.users
-  nonEditableAttrs = [
-    'email',
-    'verified'
-  ]
+  model = DB.users;
+  nonEditableAttrs = ['email', 'verified'];
 
   getObject() {
     return this.model.findByPk(this.request.user.id);
@@ -64,9 +67,9 @@ class UserVerifyController extends BaseController {
       subject: 'Study Abacus Email Verification',
       to: this.request.user.email,
       templateData: {
-        link: config.SERVER.FRONTEND_URL + '/verify/' + token
-      }
-    })
+        link: config.SERVER.FRONTEND_URL + '/verify/' + token,
+      },
+    });
 
     this.response.status(204).send({});
   }
@@ -84,5 +87,5 @@ class UserVerifyController extends BaseController {
 module.exports = {
   UserDetailController,
   UserVerifyController,
-  UserUpdateController
-}
+  UserUpdateController,
+};

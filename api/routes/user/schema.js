@@ -1,29 +1,24 @@
 const postSchema = {
   body: {
     type: 'object',
-    required: [
-      'name',
-      'email',
-      'password',
-      'passwordRepeat'
-    ],
+    required: ['name', 'email', 'password', 'passwordRepeat'],
     properties: {
       name: {
-        type: 'string'
+        type: 'string',
       },
       email: {
-        type: 'string'
+        type: 'string',
       },
       password: {
-        type: 'string'
+        type: 'string',
       },
       passwordRepeat: {
-        type: 'string'
-      }
-    }
-  }
-}
+        type: 'string',
+      },
+    },
+  },
+};
 
 module.exports = {
-  postSchema
-}
+  postSchema,
+};

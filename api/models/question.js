@@ -1,9 +1,7 @@
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 const JsonApiModel = require('base/jsonApiModel');
 const SerializerOpts = require('serializer-opts/question');
-  
+
 class Question extends JsonApiModel {
   static get serializerOpts() {
     return SerializerOpts(this);
@@ -13,27 +11,30 @@ class Question extends JsonApiModel {
     questions.belongsTo(examinations);
     examinations.hasMany(questions);
   }
-};
-  
+}
+
 module.exports = (sequelize, DataTypes) => {
-  Question.init({
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false
+  Question.init(
+    {
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      description: {
+        type: DataTypes.TEXT,
+        defaultValue: '',
+        allowNull: false,
+      },
+      type: {
+        type: DataTypes.ENUM('number', 'text', 'paragraph'),
+        defaultValue: 'number',
+        allowNull: false,
+      },
     },
-    description: {
-      type: DataTypes.TEXT,
-      defaultValue: '',
-      allowNull: false
+    {
+      sequelize,
+      modelName: 'questions',
     },
-    type: {
-      type: DataTypes.ENUM('number', 'text', 'paragraph'),
-      defaultValue: 'number',
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    modelName: 'questions',
-  });
+  );
   return Question;
 };

@@ -7,36 +7,36 @@ module.exports = {
         type: Sequelize.BIGINT,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       token: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       validTill: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       },
       userId: {
         type: Sequelize.BIGINT,
         allowNull: false,
         references: {
           model: 'users',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       createdAt: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       },
       updatedAt: {
         type: Sequelize.DATE,
-        allowNull: false
-      }
-    })
+        allowNull: false,
+      },
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('verifyRequests')
-  }
+    return queryInterface.dropTable('verifyRequests');
+  },
 };

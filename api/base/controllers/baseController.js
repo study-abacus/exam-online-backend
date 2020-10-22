@@ -1,9 +1,5 @@
 class BaseController {
-  constructor(
-    request,
-    response,
-    app
-  ) {
+  constructor(request, response, app) {
     this.request = request;
     this.response = response;
     this.app = app;
@@ -24,9 +20,9 @@ class BaseController {
 
   static asHandler(method, app) {
     return (request, response) => {
-      const controller = new this(request, response, app)
-      return controller[method]()
-    }
+      const controller = new this(request, response, app);
+      return controller[method]();
+    };
   }
 }
 
