@@ -5,6 +5,16 @@ class ExaminationListController extends BaseListController {
   model = DB.examinations
 }
 
+class RelationshipQuestionController extends BaseListController {
+  model = DB.questions;
+  generateWhereClause() {
+    return {
+      examinationId: this.request.params.id
+    }
+  }
+}
+
 module.exports = {
-  ExaminationListController
+  ExaminationListController,
+  RelationshipQuestionController
 }
