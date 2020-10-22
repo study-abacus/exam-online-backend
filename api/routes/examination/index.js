@@ -7,10 +7,7 @@ module.exports = async (app, opts) => {
   app.get(
     '/:id/relationships/questions',
     {
-      preHandler: [
-        LoginRequired,
-        HasExamAttempt()
-      ]
+      preHandler: [LoginRequired, HasExamAttempt()],
     },
     Controllers.RelationshipQuestionController.asHandler('get'),
   );

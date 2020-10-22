@@ -13,8 +13,8 @@ module.exports = async (app, opts) => {
           const quiz = await DB.questions.findByPk(request.params.id);
 
           return quiz.examinationId;
-        })
-      ]
+        }),
+      ],
     },
     Controllers.QuestionDetailController.asHandler('get'),
   );
