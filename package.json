@@ -25,6 +25,7 @@
     "fastify-qs": "^2.0.0",
     "jsonapi-serializer": "^3.6.6",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "pg": "^8.3.3",
     "ramda": "^0.27.1",
     "sequelize": "^6.3.5",

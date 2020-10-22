@@ -7,8 +7,8 @@ class QuestionAttempt extends JsonApiModel {
     return SerializerOpts(this);
   }
 
-  static associate(models) {
-    // define association here
+  static associate({ questions, questionAttempts }) {
+    questionAttempts.belongsTo(questions);
   }
 }
 

@@ -1,5 +1,7 @@
+const Sequelize = require('sequelize');
 const ApiError = require('base/error');
 const DB = require('models');
+const Moment = require('moment');
 
 const hasExamAttempt = (examIdExtractor = async (request) => request.params.id) => async (request, reply) => {
   const examinationId = await examIdExtractor(request);
@@ -8,7 +10,10 @@ const hasExamAttempt = (examIdExtractor = async (request) => request.params.id) 
   const examAttempt = await DB.examAttempts.findOne({
     where: {
       examinationId,
-      userId
+      userId,
+      start: {
+        [Sequelize.Op.lt]: Moment()
+      }
     }
   });
 
