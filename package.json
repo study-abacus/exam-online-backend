@@ -45,7 +45,7 @@
   },
   "lint-staged": {
     "*/**/*.{js}": [
-      "prettier"
+      "prettier --write"
     ]
   }
 }
