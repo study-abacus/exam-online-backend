@@ -7,8 +7,13 @@ class QuestionAttempt extends JsonApiModel {
     return SerializerOpts(this);
   }
 
-  static associate({ questions, questionAttempts }) {
+  static get deserializerOpts() {
+    return SerializerOpts(this, 'deserialize');
+  } 
+
+  static associate({ questions, questionAttempts, examAttempts }) {
     questionAttempts.belongsTo(questions);
+    questionAttempts.belongsTo(examAttempts);
   }
 }
 
