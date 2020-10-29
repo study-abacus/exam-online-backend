@@ -11,6 +11,20 @@ module.exports = async (app, opts) => {
     },
     Controllers.RelationshipQuestionController.asHandler('get'),
   );
+  app.get(
+    '/:id',
+    {
+      preHandler: [LoginRequired, HasExamAttempt()],
+    },
+    Controllers.ExaminationDetailController.asHandler('get'),
+  )
+  app.get(
+    '/:id/current-exam-attempt',
+    {
+      preHandler: [LoginRequired, HasExamAttempt()],
+    },
+    Controllers.CurrentExamAttemptController.asHandler('get'),
+  )
 };
 
 module.exports.autoPrefix = '/examinations';
