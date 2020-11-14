@@ -12,7 +12,7 @@ module.exports = async (app, opts) => {
   app.get(
     '/:id',
     {
-      preHandler: [LoginRequired, HasExamAttempt(getExamIdFromQuestion)],
+      preHandler: [LoginRequired, HasExamAttempt({ examIdExtractor: getExamIdFromQuestion })],
     },
     Controllers.QuestionDetailController.asHandler('get'),
   );

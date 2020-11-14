@@ -14,17 +14,17 @@ module.exports = async (app, opts) => {
   app.get(
     '/:id',
     {
-      preHandler: [LoginRequired, HasExamAttempt()],
+      preHandler: [LoginRequired, HasExamAttempt({ enforceStart: false })],
     },
     Controllers.ExaminationDetailController.asHandler('get'),
-  )
+  );
   app.get(
     '/:id/current-exam-attempt',
     {
-      preHandler: [LoginRequired, HasExamAttempt()],
+      preHandler: [LoginRequired, HasExamAttempt({ enforceStart: false })],
     },
     Controllers.CurrentExamAttemptController.asHandler('get'),
-  )
+  );
 };
 
 module.exports.autoPrefix = '/examinations';

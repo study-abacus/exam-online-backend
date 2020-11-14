@@ -3,10 +3,9 @@ const ApiError = require('base/error');
 const DB = require('models');
 const Moment = require('moment');
 
-const hasExamAttempt = (examIdExtractor = async (request) => request.params.id) => async (
-  request,
-  reply,
-) => {
+const hasExamAttempt = (opts = {}) => async (request, reply) => {
+  const { examIdExtractor = async (request) => request.params.id, enforceStart = true } = opts;
+
   const examinationId = await examIdExtractor(request);
   const userId = request.user.id;
 
@@ -14,9 +13,11 @@ const hasExamAttempt = (examIdExtractor = async (request) => request.params.id) 
     where: {
       examinationId,
       userId,
-      start: {
-        [Sequelize.Op.lt]: Moment(),
-      },
+      ...(enforceStart && {
+        start: {
+          [Sequelize.Op.lt]: Moment(),
+        },
+      }),
     },
   });
 
