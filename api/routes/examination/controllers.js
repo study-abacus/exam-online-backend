@@ -15,6 +15,16 @@ class RelationshipQuestionController extends BaseListController {
   }
 }
 
+class RelationshipPracticePaperController extends BaseListController {
+  model = DB.practicePapers;
+
+  generateWhereClause() {
+    return {
+      examinationId: this.request.params.id,
+    };
+  }
+}
+
 class ExaminationDetailController extends BaseDetailController {
   model = DB.examinations;
 }
@@ -33,5 +43,6 @@ module.exports = {
   ExaminationListController,
   RelationshipQuestionController,
   ExaminationDetailController,
-  CurrentExamAttemptController
+  CurrentExamAttemptController,
+  RelationshipPracticePaperController,
 };

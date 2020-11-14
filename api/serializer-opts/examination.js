@@ -10,6 +10,7 @@ module.exports = () => ({
     'registrationEnd',
     'questions',
     'examAttempt',
+    'practicePapers',
   ],
   questions: {
     ref: 'id',
@@ -25,6 +26,14 @@ module.exports = () => ({
     nullIfMissing: true,
     relationshipLinks: {
       related: (record, current, parent) => `/api/examinations/${parent.id}/current-exam-attempt`,
+    },
+  },
+  practicePapers: {
+    ref: 'id',
+    ignoreRelationshipData: true,
+    nullIfMissing: true,
+    relationshipLinks: {
+      related: (record, current, parent) => `/api/examinations/${parent.id}/practice-papers`,
     },
   },
   meta: {
