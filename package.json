@@ -45,7 +45,6 @@
   },
   "lint-staged": {
     "api/**/*.js": [
-      "echo",
       "prettier --write"
     ]
   }
