@@ -33,7 +33,8 @@ module.exports = () => ({
     ignoreRelationshipData: true,
     nullIfMissing: true,
     relationshipLinks: {
-      related: (record, current, parent) => `/api/examinations/${parent.id}/practice-papers`,
+      related: (record, current, parent) =>
+        `/api/examinations/${parent.id}/relationships/practice-papers`,
     },
   },
   meta: {
