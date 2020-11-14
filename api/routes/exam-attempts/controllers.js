@@ -4,12 +4,6 @@ const DB = require('models');
 
 class ExamAttemptDetailController extends BaseDetailController {
   model = DB.examAttempts;
-
-  generateWhereClause() {
-    return {
-      userId: this.request.user.id,
-    };
-  }
 }
 
 class ExamAttemptListController extends BaseListController {

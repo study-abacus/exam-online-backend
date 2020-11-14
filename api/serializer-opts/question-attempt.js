@@ -11,12 +11,7 @@ module.exports = (model, type = 'serialize') => {
   }
 
   return {
-    attributes: [
-      'id',
-      'answer',
-      'question',
-      'examAttempt'
-    ],
+    attributes: ['id', 'answer', 'question', 'examAttempt'],
     question: {
       ref: 'id',
       ...QuestionSerializerOpts(),
@@ -28,5 +23,5 @@ module.exports = (model, type = 'serialize') => {
     meta: {
       pagination: (records) => records.pagination,
     },
-  }
+  };
 };

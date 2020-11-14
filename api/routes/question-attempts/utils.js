@@ -4,11 +4,11 @@ const { Deserializer } = require('jsonapi-serializer');
 const getExamAttemptId = async (questionId, userId) => {
   const examId = await getExamIdFromQuestionId(questionId);
 
-  const examAttempt =  await DB.examAttempts.findOne({
+  const examAttempt = await DB.examAttempts.findOne({
     where: {
       userId: userId,
       examinationId: examId,
-    } 
+    },
   });
 
   return examAttempt.id;
@@ -29,7 +29,7 @@ const getExamIdFromQuestionAttempt = async (request) => {
 const deserializeAndExtractExamId = async (request) => {
   const deserializer = new Deserializer({
     questions: {
-      valueForRelationship: relationship => ({ id: relationship.id }),
+      valueForRelationship: (relationship) => ({ id: relationship.id }),
     },
   });
   const questionAttemptData = await deserializer.deserialize(request.body);

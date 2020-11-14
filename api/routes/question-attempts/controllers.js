@@ -10,7 +10,7 @@ class QuestionAttemptDetailController extends BaseDetailController {
 
 class QuestionAttemptCreateController extends BaseCreateController {
   model = DB.questionAttempts;
-  
+
   async beforeCreate(model) {
     const { questionId } = model;
 

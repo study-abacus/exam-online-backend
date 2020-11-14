@@ -8,33 +8,24 @@ module.exports = async (app, opts) => {
   app.get(
     '/:id',
     {
-      preHandler: [
-        LoginRequired,
-        HasExamAttempt(getExamIdFromQuestionAttempt),
-      ]
+      preHandler: [LoginRequired, HasExamAttempt(getExamIdFromQuestionAttempt)],
     },
     Controllers.QuestionAttemptDetailController.asHandler('get'),
-  )
+  );
   app.post(
     '/',
     {
-      preHandler: [
-        LoginRequired,
-        HasExamAttempt(deserializeAndExtractExamId),
-      ]
+      preHandler: [LoginRequired, HasExamAttempt(deserializeAndExtractExamId)],
     },
     Controllers.QuestionAttemptCreateController.asHandler('post'),
-  )
+  );
   app.patch(
     '/:id',
     {
-      preHandler: [
-        LoginRequired,
-        HasExamAttempt(getExamIdFromQuestionAttempt),
-      ]
+      preHandler: [LoginRequired, HasExamAttempt(getExamIdFromQuestionAttempt)],
     },
     Controllers.QuestionAttemptUpdateController.asHandler('patch'),
-  )
+  );
 };
 
 module.exports.autoPrefix = '/question-attempts';

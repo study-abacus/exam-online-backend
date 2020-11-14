@@ -6,16 +6,13 @@ const Controllers = require('./controllers');
 const getExamIdFromQuestion = async (request) => {
   const question = await DB.questions.findByPk(request.params.id);
   return question.examinationId;
-}
+};
 
 module.exports = async (app, opts) => {
   app.get(
     '/:id',
     {
-      preHandler: [
-        LoginRequired,
-        HasExamAttempt(getExamIdFromQuestion),
-      ],
+      preHandler: [LoginRequired, HasExamAttempt(getExamIdFromQuestion)],
     },
     Controllers.QuestionDetailController.asHandler('get'),
   );
