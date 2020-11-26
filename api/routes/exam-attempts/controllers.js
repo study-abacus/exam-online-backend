@@ -2,6 +2,7 @@ const BaseController = require('base/controllers/baseController');
 const BaseDetailController = require('base/controllers/detailController');
 const BaseListController = require('base/controllers/listController');
 const DB = require('models');
+const moment = require('moment');
 
 class ExamAttemptDetailController extends BaseDetailController {
   model = DB.examAttempts;
@@ -26,6 +27,7 @@ class ExamAttemptSubmitController extends BaseController {
     }
 
     examAttempt.isSubmitted = true;
+    examAttempt.submittedAt = moment().toISOString();
     await examAttempt.save();
 
     this.response.status(204).send({});
