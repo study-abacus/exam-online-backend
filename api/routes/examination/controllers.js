@@ -35,7 +35,6 @@ class CurrentExamAttemptController extends BaseDetailController {
     return {
       examinationId: this.request.params.id,
       userId: this.request.user.id,
-      isSubmitted: false,
     };
   }
 }
