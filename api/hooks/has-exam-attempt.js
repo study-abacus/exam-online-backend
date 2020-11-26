@@ -13,6 +13,7 @@ const hasExamAttempt = (opts = {}) => async (request, reply) => {
     where: {
       examinationId,
       userId,
+      isSubmitted: false,
       ...(enforceStart && {
         start: {
           [Sequelize.Op.lt]: Moment(),

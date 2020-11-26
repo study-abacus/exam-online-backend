@@ -12,6 +12,7 @@ class QuestionAttempt extends JsonApiModel {
   }
 
   static associate({ questions, questionAttempts, examAttempts }) {
+    questions.hasOne(questionAttempts);
     questionAttempts.belongsTo(questions);
     questionAttempts.belongsTo(examAttempts);
   }
@@ -23,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
       answer: {
         type: DataTypes.TEXT,
         allowNull: false,
+      },
+      willReview: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
     },
     {

@@ -11,7 +11,7 @@ module.exports = (model, type = 'serialize') => {
   }
 
   return {
-    attributes: ['id', 'answer', 'question', 'examAttempt'],
+    attributes: ['id', 'answer', 'question', 'willReview', 'examAttempt'],
     question: {
       ref: 'id',
       ...QuestionSerializerOpts(),

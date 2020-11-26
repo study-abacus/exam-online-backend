@@ -15,6 +15,16 @@ module.exports = async (app, opts) => {
     },
     Controllers.QuestionAttemptDetailController.asHandler('get'),
   );
+  app.get(
+    '/examination/:examinationId',
+    {
+      preHandler: [
+        LoginRequired,
+        HasExamAttempt({ examIdExtractor: (request) => request.params.examinationId }),
+      ],
+    },
+    Controllers.QuestionAttemptsController.asHandler('get'),
+  );
   app.post(
     '/',
     {
