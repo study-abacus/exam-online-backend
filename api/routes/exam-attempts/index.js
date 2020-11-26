@@ -17,6 +17,13 @@ module.exports = async (app, opts) => {
     },
     Controllers.ExamAttemptDetailController.asHandler('get'),
   );
+  app.post(
+    '/:id/submit',
+    {
+      preHandler: [LoginRequired, hasExamAttempt()],
+    },
+    Controllers.ExamAttemptSubmitController.asHandler('post'),
+  );
 };
 
 module.exports.autoPrefix = '/exam-attempts';
