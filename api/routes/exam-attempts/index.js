@@ -1,6 +1,7 @@
 const LoginRequired = require('hooks/login-required');
 const hasExamAttempt = require('hooks/has-exam-attempt');
 const Controllers = require('./controllers');
+const Hooks = require('./hooks');
 
 module.exports = async (app, opts) => {
   app.get(
@@ -13,14 +14,14 @@ module.exports = async (app, opts) => {
   app.get(
     '/:id',
     {
-      preHandler: [LoginRequired, hasExamAttempt()],
+      preHandler: [LoginRequired, Hooks.examAttemptBelongsToUser],
     },
     Controllers.ExamAttemptDetailController.asHandler('get'),
   );
   app.post(
     '/:id/submit',
     {
-      preHandler: [LoginRequired, hasExamAttempt()],
+      preHandler: [LoginRequired, Hooks.examAttemptBelongsToUser],
     },
     Controllers.ExamAttemptSubmitController.asHandler('post'),
   );
