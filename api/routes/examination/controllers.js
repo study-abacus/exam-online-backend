@@ -46,6 +46,14 @@ class CurrentExamAttemptController extends BaseDetailController {
       userId: this.request.user.id,
     };
   }
+  getObject() {
+    return this.model.findOne({
+      where: {
+        ...this.generateWhereClause(),
+      },
+      include: this.generateIncludeClause(),
+    });
+  }
 }
 
 module.exports = {
