@@ -4,6 +4,15 @@ const DB = require('models');
 
 class ExaminationListController extends BaseListController {
   model = DB.examinations;
+
+  generateWhereClause() {
+    const whereClause = super.generateWhereClause();
+
+    return {
+      ...whereClause,
+      unlisted: false,
+    };
+  }
 }
 
 class RelationshipQuestionController extends BaseListController {
