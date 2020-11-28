@@ -1,5 +1,11 @@
+const ChoiceSerializerOpts = require('./choice');
+
 module.exports = () => ({
-  attributes: ['id', 'title', 'description', 'type', 'questionAttempt'],
+  attributes: ['id', 'title', 'description', 'type', 'questionAttempt', 'choices'],
+  choices: {
+    ref: 'id',
+    ...ChoiceSerializerOpts(),
+  },
   questionAttempt: {
     ref: 'id',
     nullIfMissing: true,
