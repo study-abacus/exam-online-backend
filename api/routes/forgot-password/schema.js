@@ -13,9 +13,12 @@ const postSchema = {
 const postResetPasswordSchema = {
   body: {
     type: 'object',
-    required: ['password'],
+    required: ['password', 'passwordRepeat'],
     properties: {
       password: {
+        type: 'string',
+      },
+      passwordRepeat: {
         type: 'string',
       },
     },
