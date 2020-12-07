@@ -10,7 +10,11 @@ class UserDetailController extends BaseDetailController {
   model = DB.users;
 
   async getMe() {
-    const user = this.request.user;
+    const user = await this.model.findByPk(this.request.user.id, {
+      include: {
+        model: DB.profiles,
+      },
+    });
 
     return this.serialize(user);
   }
