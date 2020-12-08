@@ -48,16 +48,7 @@ class ForgetPasswordController extends BaseController {
 
   async postResetPassword() {
     const { token } = this.request.params;
-    const { password, passwordRepeat } = this.request.body;
-
-    if (password !== passwordRepeat) {
-      throw new ApiError(
-        {
-          title: 'Password do not match',
-        },
-        400,
-      );
-    }
+    const { password } = this.request.body;
 
     const _resetPasswordService = this.app.getService('reset-password');
 

@@ -1,5 +1,6 @@
 const Controllers = require('./controllers');
 const Schema = require('./schema');
+const MatchPassword = require('hooks/match-password');
 
 module.exports = async (app, opts) => {
   app.post(
@@ -17,6 +18,7 @@ module.exports = async (app, opts) => {
     '/reset-password/:token',
     {
       schema: Schema.postResetPasswordSchema,
+      preHandler: MatchPassword,
     },
     Controllers.ForgetPasswordController.asHandler('postResetPassword', app),
   );
