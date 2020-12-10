@@ -5,6 +5,7 @@ const postSchema = {
     properties: {
       name: {
         type: 'string',
+        minLength: 1,
       },
       email: {
         type: 'string',
