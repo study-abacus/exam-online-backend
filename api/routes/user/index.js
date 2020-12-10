@@ -1,6 +1,7 @@
 const Controllers = require('./controllers');
 const Schema = require('./schema');
 const LoginRequired = require('hooks/login-required');
+const MatchPassword = require('hooks/match-password');
 
 module.exports = async (app, opts) => {
   app.get(
@@ -30,6 +31,7 @@ module.exports = async (app, opts) => {
     '/',
     {
       schema: Schema.postSchema,
+      preHandler: MatchPassword,
     },
     Controllers.UserDetailController.asHandler('post'),
   );
