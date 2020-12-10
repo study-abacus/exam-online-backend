@@ -13,6 +13,10 @@ class ExaminationListController extends BaseListController {
       unlisted: false,
     };
   }
+
+  generateOrderClause() {
+    return ['id'];
+  }
 }
 
 class RelationshipQuestionController extends BaseListController {
