@@ -5,7 +5,7 @@ module.exports = {
     const _authenticationService = app.getService('authentication');
 
     const { email, password } = request.body;
-    const token = await _authenticationService.authenticate(email, password);
+    const token = await _authenticationService.authenticate(email.trim(), password);
 
     if (!token) {
       throw new ApiError(
