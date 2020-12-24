@@ -3,12 +3,16 @@ const DB = require('models');
 const ApiError = require('base/error');
 const crypto = require('crypto');
 const config = require('config');
+const moment = require('moment');
 
 const isExaminationIdsCorrect = async (examinationIds) => {
   const count = await DB.examinations.count({
     where: {
       id: {
         [Sequelize.Op.in]: examinationIds,
+      },
+      registrationEnd: {
+        [Sequelize.Op.gt]: moment().toISOString(),
       },
     },
   });
