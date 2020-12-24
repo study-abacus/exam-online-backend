@@ -19,4 +19,11 @@ module.exports = {
   SENDGRID: {
     KEY: process.env.SENDGRID_KEY || 'bleh',
   },
+  MINIO: {
+    BUCKET_NAME: 'recordings',
+    ENDPOINT: process.env.MINIO_ENPOINT || '127.0.0.1',
+    ACCESS_KEY: process.env.MINIO_ACCESS_KEY || 'minio',
+    SECRET_KEY: process.env.MINIO_SECRET_KEY || 'minio123',
+    PORT: Number(process.env.MINIO_PORT || '80'),
+  },
 };

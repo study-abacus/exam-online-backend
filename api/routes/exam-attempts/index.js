@@ -25,6 +25,13 @@ module.exports = async (app, opts) => {
     },
     Controllers.ExamAttemptSubmitController.asHandler('post'),
   );
+  app.post(
+    '/:id/videoPing',
+    {
+      preHandler: [LoginRequired, Hooks.examAttemptBelongsToUser],
+    },
+    Controllers.ExamAttemptVideoPingController.asHandler('post', app),
+  );
 };
 
 module.exports.autoPrefix = '/exam-attempts';
