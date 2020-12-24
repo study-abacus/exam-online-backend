@@ -1,4 +1,7 @@
 module.exports = {
+  APP: {
+    ENV: process.env.NODE_ENV || 'development',
+  },
   SERVER: {
     PORT: process.env.PORT || 6969,
     SECRET: process.env.APP_SECRET || 'abcd',

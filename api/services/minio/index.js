@@ -8,8 +8,8 @@ class MinioService {
       endPoint: config.MINIO.ENDPOINT,
       accessKey: config.MINIO.ACCESS_KEY,
       secretKey: config.MINIO.SECRET_KEY,
-      port: 9000,
-      useSSL: false,
+      port: config.MINIO.PORT,
+      useSSL: config.APP.ENV === 'production',
     });
   }
 
