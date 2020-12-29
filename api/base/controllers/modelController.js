@@ -2,6 +2,7 @@ const BaseController = require('./baseController');
 
 class ModelController extends BaseController {
   model = null;
+  defaultExcludes = [];
 
   generateWhereClause() {
     return {};
@@ -79,7 +80,8 @@ class ModelController extends BaseController {
           return includeObj; // else return just include this one.
         }
       })
-      .filter((v) => v.model);
+      .filter((v) => v.model)
+      .filter((v) => !this.defaultExcludes.includes(v.model.name));
   }
 }
 

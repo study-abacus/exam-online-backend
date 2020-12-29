@@ -3,6 +3,27 @@ const DB = require('models');
 
 class QuestionDetailController extends BaseDetailController {
   model = DB.questions;
+
+  defaultExcludes = ['questionAttempts'];
+
+  generateIncludeClause() {
+    const include = super.generateIncludeClause();
+
+    return [
+      ...include,
+      {
+        model: DB.questionAttempts,
+        include: {
+          model: DB.examAttempts,
+          where: {
+            userId: this.request.user.id,
+          },
+          required: true,
+        },
+        required: true,
+      },
+    ];
+  }
 }
 
 class CurrentQuestionAttemptController extends BaseDetailController {
