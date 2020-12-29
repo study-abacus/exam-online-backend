@@ -14,7 +14,11 @@ const app = Fastify({
 
 app
   .register(FastifyCors, {
-    origin: ['http://localhost:4200', 'https://examination.studyabacus.com'],
+    origin: [
+      'http://localhost:4200',
+      'https://examination.studyabacus.com',
+      'http://test.examination',
+    ],
     credentials: true,
   })
   .register(FastifyQS)

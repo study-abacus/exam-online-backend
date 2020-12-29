@@ -8,6 +8,7 @@ module.exports = () => ({
   },
   questionAttempt: {
     ref: 'id',
+    ignoreRelationshipData: true,
     nullIfMissing: true,
     relationshipLinks: {
       related: (record, current, parent) => `/api/questions/${parent.id}/current-question-attempt`,
