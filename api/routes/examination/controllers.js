@@ -21,10 +21,15 @@ class ExaminationListController extends BaseListController {
 
 class RelationshipQuestionController extends BaseListController {
   model = DB.questions;
+
   generateWhereClause() {
     return {
       examinationId: this.request.params.id,
     };
+  }
+
+  generateOrderClause() {
+    return ['id'];
   }
 }
 

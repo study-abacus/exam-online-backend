@@ -20,7 +20,6 @@ class QuestionDetailController extends BaseDetailController {
           },
           required: true,
         },
-        required: true,
       },
     ];
   }
