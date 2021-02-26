@@ -5,15 +5,18 @@ const postSchema = {
     properties: {
       name: {
         type: 'string',
+        minLength: 1,
       },
       email: {
         type: 'string',
       },
       password: {
         type: 'string',
+        minLength: 1,
       },
       passwordRepeat: {
         type: 'string',
+        minLength: 1,
       },
     },
   },
