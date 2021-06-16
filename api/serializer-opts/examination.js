@@ -3,6 +3,7 @@ module.exports = () => ({
     'id',
     'title',
     'description',
+    'code',
     'type',
     'primaryPrice',
     'secondaryPrice',
