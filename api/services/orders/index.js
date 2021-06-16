@@ -47,10 +47,10 @@ class OrdersService {
     });
 
     // Custom checks because why choose life?
-    if (examinations.length > 2) {
+    if (examinations.length > 1) {
       throw new ApiError(
         {
-          title: 'Only 2 examinations allowed',
+          title: 'Only 1 examinations allowed',
         },
         400,
       );
