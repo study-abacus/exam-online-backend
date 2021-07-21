@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const BaseController = require('base/controllers/baseController');
 const BaseDetailController = require('base/controllers/detailController');
 const BaseUpdateController = require('base/controllers/updateController');
@@ -24,7 +25,9 @@ class UserDetailController extends BaseDetailController {
 
     const previousUser = await this.model.findOne({
       where: {
-        email,
+        email: {
+          [Op.iLike]: email
+        },
       },
     });
 

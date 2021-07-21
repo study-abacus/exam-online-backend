@@ -82,3 +82,5 @@ typings/
 tmp/
 
 .DS_Store
+
+postgres-data/

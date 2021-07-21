@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const DB = require('models');
 const { v4 } = require('uuid');
 const { compare2hash } = require('utils/password');
@@ -19,7 +20,9 @@ class AuthenticationService {
         attributes: ['id', 'name', 'email'],
         model: DB.users,
         where: {
-          email,
+          email: {
+            [Op.iLike]: email
+          },
         },
         required: true,
       },
