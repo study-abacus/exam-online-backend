@@ -1,11 +1,20 @@
 const BaseController = require('./baseController');
 
+// Mixin
 class ModelController extends BaseController {
   model = null;
   defaultExcludes = [];
 
   generateWhereClause() {
     return {};
+  }
+
+  getDefaults() {
+    throw new Error('Not Implemented');
+  }
+
+  updateObject() {
+    throw new Error('Not Implemented');
   }
 
   getIncludeModelNames() {

@@ -1,6 +1,7 @@
 const { Model } = require('sequelize');
 const JsonApiModel = require('base/jsonApiModel');
 const SerializerOpts = require('serializer-opts/user');
+const { ROLES_TYPES } = require('../constants/roles');
 
 class User extends JsonApiModel {
   static get serializerOpts() {
@@ -36,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: false,
+      },
+      roles: {
+        type: DataTypes.ARRAY(DataTypes.ENUM(ROLES_TYPES)),
       },
     },
     {
