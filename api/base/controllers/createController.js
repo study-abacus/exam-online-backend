@@ -1,7 +1,7 @@
-const BaseController = require('./modelController');
+const ModelController = require('./modelController');
 const { Deserializer } = require('jsonapi-serializer');
 
-class BaseCreateController extends BaseController {
+class BaseCreateController extends ModelController {
   async deserialize(payload) {
     const deserializer = new Deserializer({
       keyForAttribute: 'camelCase',

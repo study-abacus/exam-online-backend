@@ -1,5 +1,7 @@
 const BaseDetailController = require('base/controllers/detailController');
 const BaseListController = require('base/controllers/listController');
+const BaseCreateController = require('base/controllers/createController');
+const BaseUpdateController = require('base/controllers/updateController');
 const DB = require('models');
 
 class QuestionDetailController extends BaseDetailController {
@@ -26,6 +28,14 @@ class QuestionDetailController extends BaseDetailController {
   }
 }
 
+class QuestionCreateController extends BaseCreateController {
+  model = DB.questions;
+}
+
+class QuestionsUpdateController extends BaseUpdateController {
+  model = DB.questions;
+}
+
 class CurrentQuestionAttemptController extends BaseDetailController {
   model = DB.questionAttempts;
 
@@ -37,7 +47,7 @@ class CurrentQuestionAttemptController extends BaseDetailController {
       include: {
         model: DB.examAttempts,
         where: {
-          userId: this.request.user.id,
+          userId: this.request.body.userId,
         },
         required: true,
       },
@@ -64,4 +74,6 @@ module.exports = {
   QuestionDetailController,
   CurrentQuestionAttemptController,
   QuestionsListController,
+  QuestionCreateController,
+  QuestionsUpdateController,
 };

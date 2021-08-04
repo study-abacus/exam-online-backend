@@ -9,14 +9,6 @@ class ModelController extends BaseController {
     return {};
   }
 
-  getDefaults() {
-    throw new Error('Not Implemented');
-  }
-
-  updateObject() {
-    throw new Error('Not Implemented');
-  }
-
   getIncludeModelNames() {
     const req = this.request;
     if (!req || !req.query.include) return [];

@@ -40,12 +40,12 @@ module.exports = async (app, opts) => {
   app.post(
     '/',
     { preHandler: AdminRoleRequired },
-    Controllers.QuestionDetailController.asHandler('post'),
+    Controllers.QuestionCreateController.asHandler('post'),
   );
   app.patch(
     '/:id',
     { preHandler: AdminRoleRequired },
-    Controllers.QuestionDetailController.asHandler('patch'),
+    Controllers.QuestionsUpdateController.asHandler('patch'),
   );
   app.delete(
     '/:id',

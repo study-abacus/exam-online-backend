@@ -1,5 +1,7 @@
 const BaseListController = require('base/controllers/listController');
 const BaseDetailController = require('base/controllers/detailController');
+const BaseCreateController = require('base/controllers/createController');
+const BaseUpdateController = require('base/controllers/updateController');
 const DB = require('models');
 
 class ExaminationListController extends BaseListController {
@@ -43,6 +45,14 @@ class RelationshipPracticePaperController extends BaseListController {
   }
 }
 
+class ExaminationCreateController extends BaseCreateController {
+  model = DB.examinations;
+}
+
+class ExaminationUpdateController extends BaseUpdateController {
+  model = DB.examinations;
+}
+
 class ExaminationDetailController extends BaseDetailController {
   model = DB.examinations;
 }
@@ -71,4 +81,6 @@ module.exports = {
   ExaminationDetailController,
   CurrentExamAttemptController,
   RelationshipPracticePaperController,
+  ExaminationCreateController,
+  ExaminationUpdateController,
 };
