@@ -30,13 +30,6 @@ module.exports = async (app, opts) => {
     },
     Controllers.ExaminationDetailController.asHandler('get'),
   );
-  app.get(
-    '/:id/current-exam-attempt',
-    {
-      preHandler: AdminRoleRequired,
-    },
-    Controllers.CurrentExamAttemptController.asHandler('get'),
-  );
   app.post(
     '/',
     { preHandler: AdminRoleRequired },
@@ -51,7 +44,7 @@ module.exports = async (app, opts) => {
   app.delete(
     '/:id',
     { preHandler: AdminRoleRequired },
-    Controllers.ExaminationDetailController.asHandler('delete'),
+    Controllers.ExaminationDeleteController.asHandler('delete'),
   );
 };
 

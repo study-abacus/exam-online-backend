@@ -2,19 +2,16 @@ const BaseListController = require('base/controllers/listController');
 const BaseDetailController = require('base/controllers/detailController');
 const BaseCreateController = require('base/controllers/createController');
 const BaseUpdateController = require('base/controllers/updateController');
+const BaseDeleteController = require('base/controllers/deleteController');
 const DB = require('models');
+const ExaminationSerializerOpts = require('serializer-opts/admin/examination');
+const QuestionSerializerOpts = require('serializer-opts/admin/question');
+const PracticePaperSerializerOpts = require('serializer-opts/admin/practice-papers');
 
 class ExaminationListController extends BaseListController {
   model = DB.examinations;
-
-  generateWhereClause() {
-    const whereClause = super.generateWhereClause();
-
-    return {
-      ...whereClause,
-      unlisted: false,
-    };
-  }
+  modelName = DB.examinations.name;
+  serializerOpts = ExaminationSerializerOpts(DB.examinations.name);
 
   generateOrderClause() {
     return ['id'];
@@ -23,6 +20,8 @@ class ExaminationListController extends BaseListController {
 
 class RelationshipQuestionController extends BaseListController {
   model = DB.questions;
+  modelName = DB.questions.name;
+  serializerOpts = QuestionSerializerOpts(DB.questions.name);
 
   generateWhereClause() {
     return {
@@ -37,6 +36,8 @@ class RelationshipQuestionController extends BaseListController {
 
 class RelationshipPracticePaperController extends BaseListController {
   model = DB.practicePapers;
+  modelName = DB.practicePapers.name;
+  serializerOpts = PracticePaperSerializerOpts(DB.practicePapers.name);
 
   generateWhereClause() {
     return {
@@ -47,40 +48,34 @@ class RelationshipPracticePaperController extends BaseListController {
 
 class ExaminationCreateController extends BaseCreateController {
   model = DB.examinations;
+  modelName = DB.examinations.name;
+  serializerOpts = ExaminationSerializerOpts(DB.examinations.name);
 }
 
 class ExaminationUpdateController extends BaseUpdateController {
   model = DB.examinations;
+  modelName = DB.examinations.name;
+  serializerOpts = ExaminationSerializerOpts(DB.examinations.name);
 }
 
 class ExaminationDetailController extends BaseDetailController {
   model = DB.examinations;
+  modelName = DB.examinations.name;
+  serializerOpts = ExaminationSerializerOpts(DB.examinations.name);
 }
 
-class CurrentExamAttemptController extends BaseDetailController {
-  model = DB.examAttempts;
-  generateWhereClause() {
-    return {
-      examinationId: this.request.params.id,
-      userId: this.request.user.id,
-    };
-  }
-  getObject() {
-    return this.model.findOne({
-      where: {
-        ...this.generateWhereClause(),
-      },
-      include: this.generateIncludeClause(),
-    });
-  }
+class ExaminationDeleteController extends BaseDeleteController {
+  model = DB.examinations;
+  modelName = DB.examinations.name;
+  serializerOpts = ExaminationSerializerOpts(DB.examinations.name);
 }
 
 module.exports = {
   ExaminationListController,
   RelationshipQuestionController,
   ExaminationDetailController,
-  CurrentExamAttemptController,
   RelationshipPracticePaperController,
   ExaminationCreateController,
   ExaminationUpdateController,
+  ExaminationDeleteController,
 };

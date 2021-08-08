@@ -26,10 +26,6 @@ class BaseListController extends ModelController {
     return Object.assign({}, ...keyValues);
   }
 
-  async serialize(instances) {
-    return this.model.listToJsonApiPayload(instances);
-  }
-
   generateOffsetStatement() {
     const page = this.request.query.page || {};
     return +page.offset || 0;

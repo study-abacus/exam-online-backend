@@ -9,7 +9,7 @@ module.exports = async (app, opts) => {
   );
   app.get('/', { preHandler: AdminRoleRequired }, Controllers.UserListController.asHandler('get'));
   app.get(
-    '/exam-attempts/:userId',
+    '/:id/exam-attempts',
     { preHandler: AdminRoleRequired },
     Controllers.UserExamAttemptsDetailController.asHandler('get'),
   );

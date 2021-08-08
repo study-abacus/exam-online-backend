@@ -28,14 +28,6 @@ module.exports = async (app, opts) => {
     { preHandler: AdminRoleRequired },
     Controllers.ExamAttemptUpdateController.asHandler('patch'),
   );
-
-  app.post(
-    '/:id/videoPing',
-    {
-      preHandler: AdminRoleRequired,
-    },
-    Controllers.ExamAttemptVideoPingController.asHandler('post', app),
-  );
 };
 
 module.exports.autoPrefix = '/admin/exam-attempts';

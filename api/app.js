@@ -27,12 +27,6 @@ app
     options: {},
   })
   .register(Services)
-  // .register(Autoload, {
-  //   dir: path.join(__dirname, 'routes/admin'),
-  //   options: {
-  //     prefix: '/api/admin',
-  //   },
-  // })
   .register(Autoload, {
     dir: path.join(__dirname, 'routes'),
     options: {
