@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
       result: {
         type: DataTypes.JSON,
       },
+      certificate: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       sequelize,
