@@ -17,9 +17,11 @@ const postResetPasswordSchema = {
     properties: {
       password: {
         type: 'string',
+        minLength: 1,
       },
       passwordRepeat: {
         type: 'string',
+        minLength: 1,
       },
     },
   },
