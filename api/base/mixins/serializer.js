@@ -13,7 +13,7 @@ const SerializerMixin = (Base) =>
     }
 
     async deserialize(payload) {
-      const deserializer = getDeserializer();
+      const deserializer = this.getDeserializer();
 
       const obj = await deserializer.deserialize(payload);
 
@@ -45,7 +45,7 @@ const SerializerMixin = (Base) =>
         return new Deserializer({ keyForAttribute: 'camelCase', ...this.deserializerOpts });
       }
 
-      if (this.model instanceof JsonApiModel) {
+      if (this.model.prototype instanceof JsonApiModel) {
         return new Deserializer({ keyForAttribute: 'camelCase', ...this.model.deserializerOpts });
       }
 

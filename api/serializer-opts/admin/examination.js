@@ -12,6 +12,7 @@ module.exports = () => ({
     'questions',
     'examAttempt',
     'practicePapers',
+    'unlisted',
   ],
   questions: {
     ref: 'id',
