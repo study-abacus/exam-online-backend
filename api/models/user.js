@@ -22,15 +22,9 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
       },
+      username: { type: DataTypes.STRING, unique: true, allowNull: false },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: DataTypes.STRING,
-        validate: {
-          isEmail: true,
-        },
         allowNull: false,
       },
       verified: {
@@ -40,6 +34,18 @@ module.exports = (sequelize, DataTypes) => {
       },
       roles: {
         type: DataTypes.ARRAY(DataTypes.ENUM(ROLES_TYPES)),
+      },
+      phone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          validatePhone: function (value) {
+            if (value.match(/\d/g).length !== 10) {
+              throw new Error('Invalid phone number: ' + value);
+            }
+          },
+        },
       },
     },
     {

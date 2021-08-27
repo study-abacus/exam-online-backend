@@ -21,12 +21,12 @@ class UserDetailController extends BaseDetailController {
   }
 
   async post() {
-    const { name, email, password } = this.request.body;
+    const { name, username, password, phone } = this.request.body;
 
     const previousUser = await this.model.findOne({
       where: {
-        email: {
-          [Op.iLike]: email
+        username: {
+          [Op.iLike]: username,
         },
       },
     });
@@ -34,13 +34,13 @@ class UserDetailController extends BaseDetailController {
     if (previousUser) {
       throw new ApiError(
         {
-          title: 'Email ID already exist',
+          title: 'Username already exist',
         },
         400,
       );
     }
 
-    const user = await createUserAfterSignUp({ name, email, password });
+    const user = await createUserAfterSignUp({ name, username, password, phone });
 
     return this.serialize(user);
   }

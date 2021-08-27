@@ -1,42 +1,20 @@
-const { Op } = require('sequelize');
-const DB = require('models');
-const { v4 } = require('uuid');
-const { compare2hash } = require('utils/password');
+const UsernamePasswordAuthStrategy = require('./implementations/password');
 
-class AuthenticationService {
+class AuthStrategyFactory {
+  _DEFAULT_SERVICE = UsernamePasswordAuthStrategy;
+  _SERVICE_MAP = {
+    email: UsernamePasswordAuthStrategy,
+    otp: null,
+  };
+
   constructor(app) {
     this._app = app;
   }
 
-  _generateJwt(user) {
-    return this._app.encodeJwt({
-      user,
-    });
-  }
-
-  async authenticate(email, password) {
-    const userLocal = await DB.userLocals.findOne({
-      include: {
-        attributes: ['id', 'name', 'email'],
-        model: DB.users,
-        where: {
-          email: {
-            [Op.iLike]: email
-          },
-        },
-        required: true,
-      },
-    });
-
-    if (userLocal && (await compare2hash(password, userLocal.passwordHash))) {
-      return {
-        jwt: this._generateJwt(userLocal.user),
-        refresh_token: v4(),
-      };
-    }
-
-    return null;
+  async getStrategy(name = null) {
+    const strategy = this._SERVICE_MAP[name] || this._DEFAULT_SERVICE;
+    return new strategy(this._app);
   }
 }
 
-module.exports = AuthenticationService;
+module.exports = AuthStrategyFactory;

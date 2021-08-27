@@ -74,6 +74,13 @@ module.exports = (sequelize, DataTypes) => {
       currentLevel: {
         type: DataTypes.INTEGER,
       },
+      email: {
+        type: DataTypes.STRING,
+        validate: {
+          isEmail: true,
+        },
+        allowNull: true,
+      },
     },
     {
       sequelize,

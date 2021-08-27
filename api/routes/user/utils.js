@@ -2,7 +2,7 @@ const DB = require('models');
 const { pass2hash } = require('utils/password');
 
 const createUserAfterSignUp = async (params) => {
-  const { name, email, password } = params;
+  const { name, username, password, phone } = params;
   const passwordHash = await pass2hash(password);
 
   const userLocal = await DB.userLocals.create(
@@ -10,7 +10,8 @@ const createUserAfterSignUp = async (params) => {
       passwordHash,
       user: {
         name,
-        email,
+        username,
+        phone,
       },
     },
     {

@@ -1,9 +1,9 @@
 const loginSchema = {
   body: {
     type: 'object',
-    required: ['email', 'password'],
+    required: ['username', 'password'],
     properties: {
-      email: {
+      username: {
         type: 'string',
       },
       password: {

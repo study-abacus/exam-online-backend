@@ -1,12 +1,9 @@
 const postSchema = {
   body: {
     type: 'object',
-    required: ['name', 'email', 'password', 'passwordRepeat'],
+    required: ['name', 'password', 'passwordRepeat'],
     properties: {
       name: {
-        type: 'string',
-      },
-      email: {
         type: 'string',
       },
       password: {

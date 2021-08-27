@@ -1,7 +1,7 @@
 const ProfileSerializerOpts = require('../profile');
 
 module.exports = () => ({
-  attributes: ['id', 'name', 'email', 'verified', 'profile', 'roles'],
+  attributes: ['id', 'name', 'verified', 'profile', 'roles'],
   profile: {
     ref: 'id',
     ...ProfileSerializerOpts(),

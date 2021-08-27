@@ -4,8 +4,9 @@ module.exports = {
   LOGIN: (app) => async (request, reply) => {
     const _authenticationService = app.getService('authentication');
 
-    const { email, password } = request.body;
-    const token = await _authenticationService.authenticate(email.trim(), password);
+    const { username, password } = request.body;
+    const strategy = await _authenticationService.getStrategy();
+    const token = await strategy.authenticate({ username: username.trim(), password });
 
     if (!token) {
       throw new ApiError(
