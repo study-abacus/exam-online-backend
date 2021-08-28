@@ -1,10 +1,11 @@
 const UsernamePasswordAuthStrategy = require('./implementations/password');
+const OtpAuthStrategy = require('./implementations/otp');
 
 class AuthStrategyFactory {
   _DEFAULT_SERVICE = UsernamePasswordAuthStrategy;
   _SERVICE_MAP = {
     email: UsernamePasswordAuthStrategy,
-    otp: null,
+    otp: OtpAuthStrategy,
   };
 
   constructor(app) {

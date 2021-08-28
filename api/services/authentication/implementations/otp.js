@@ -1,34 +1,27 @@
 const { Op } = require('sequelize');
 const DB = require('models');
 const { v4 } = require('uuid');
-const { compare2hash } = require('utils/password');
 const AuthStrategyInterface = require('../interface');
 
-class EmailPasswordAuthStrategy extends AuthStrategyInterface {
-  async authenticate({ phone, otp }) {
-    return {};
-    const userLocal = await DB.userLocals.findOne({
-      include: {
-        attributes: ['id', 'name', 'email'],
-        model: DB.users,
-        where: {
-          email: {
-            [Op.iLike]: email,
-          },
-        },
-        required: true,
-      },
-    });
+class OtpAuthStrategy extends AuthStrategyInterface {
+  constructor(app) {
+    super(app);
+    this._redis = app.getService('redis').client;
+  }
 
-    if (userLocal && (await compare2hash(password, userLocal.passwordHash))) {
+  async authenticate({ phone, otp }) {
+    const correctOtp = await this._redis.get(phone);
+    if (correctOtp == otp) {
+      const user = await DB.users.findOne({
+        where: { phone },
+      });
       return {
-        jwt: this._generateJwt(userLocal.user),
+        jwt: this._generateJwt({ user }),
         refresh_token: v4(),
       };
     }
-
     return null;
   }
 }
 
-module.exports = AuthenticationService;
+module.exports = OtpAuthStrategy;

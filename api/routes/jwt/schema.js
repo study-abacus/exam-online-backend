@@ -1,7 +1,6 @@
 const loginSchema = {
   body: {
     type: 'object',
-    required: ['username', 'password'],
     properties: {
       username: {
         type: 'string',
@@ -9,6 +8,8 @@ const loginSchema = {
       password: {
         type: 'string',
       },
+      phone: { type: 'string' },
+      otp: { type: 'string' },
     },
   },
 };
