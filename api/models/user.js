@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
       },
-      username: { type: DataTypes.STRING, unique: true, allowNull: false },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -41,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           validatePhone: function (value) {
-            if (value.match(/\d/g).length !== 10) {
+            if (!value.match(/[2-9]{2}\d{8}/)) {
               throw new Error('Invalid phone number: ' + value);
             }
           },

@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, DataTypes) => {
     return queryInterface.sequelize.transaction(async (transaction) => {
       await queryInterface.addColumn(
-        'users',
+        'userLocals',
         'username',
         {
           type: DataTypes.STRING,
@@ -31,8 +31,15 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.sequelize.transaction(async (transaction) => {
-      await queryInterface.removeColumn('users', 'username');
+      await queryInterface.removeColumn('userLocals', 'username');
       await queryInterface.removeColumn('profile', 'email');
+      await queryInterface.addColumn('users', 'email', {
+        type: DataTypes.STRING,
+        validate: {
+          isEmail: true,
+        },
+        allowNull: true,
+      });
     });
   },
 };

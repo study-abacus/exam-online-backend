@@ -1,13 +1,11 @@
+const Joi = require('joi');
+
 const postSchema = {
-  body: {
-    type: 'object',
-    required: ['phone'],
-    properties: {
-      phone: {
-        type: 'string',
-      },
-    },
-  },
+  body: Joi.object({
+    phone: Joi.string().regex(/^\d+$/).min(10).max(10).required(),
+  })
+    .keys()
+    .required(),
 };
 
 module.exports = {

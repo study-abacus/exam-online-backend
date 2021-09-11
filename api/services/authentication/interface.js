@@ -8,9 +8,11 @@ class AuthStrategyInterface {
   }
 
   _generateJwt(user) {
-    return this._app.encodeJwt({
-      user,
-    });
+    throw new Error('Not Implemented');
+  }
+
+  async createUser(credentials) {
+    throw new Error('Not Implemented');
   }
 }
 

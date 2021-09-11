@@ -1,14 +1,14 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface, DataTypes) => {
     return queryInterface.addColumn('users', 'phone', {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
         validatePhone: function (value) {
-          if (!/^(+d{1,2}s)?(?d{3})?[s.-]d{3}[s.-]d{4}$/i.test(value)) {
+          if (!value.match(/[2-9]{2}\d{8}/)) {
             throw new Error('Invalid phone number: ' + value);
           }
         },

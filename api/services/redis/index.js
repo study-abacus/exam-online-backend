@@ -15,8 +15,12 @@ class RedisClient {
     this._client = client;
   }
 
-  get client() {
-    return this._client;
+  set(key, value, timeout = 60 * 5) {
+    this._client.setex(key, timeout, value);
+  }
+
+  async get(key) {
+    return this._client.get(key);
   }
 }
 

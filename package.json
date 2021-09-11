@@ -24,6 +24,7 @@
     "fastify-cors": "^4.1.0",
     "fastify-plugin": "^2.3.4",
     "fastify-qs": "^2.0.0",
+    "joi": "^17.4.2",
     "jsonapi-serializer": "^3.6.6",
     "jsonwebtoken": "^8.5.1",
     "minio": "^7.0.18",
@@ -41,7 +42,7 @@
     "jslint": "^0.12.1",
     "lint-staged": "^10.4.2",
     "nodemon": "^2.0.12",
-    "prettier": "^2.1.2"
+    "prettier": "^2.3.2"
   },
   "husky": {
     "hooks": {

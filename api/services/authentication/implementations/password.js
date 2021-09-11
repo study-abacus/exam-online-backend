@@ -1,7 +1,7 @@
 const { Op } = require('sequelize');
 const DB = require('models');
 const { v4 } = require('uuid');
-const { compare2hash } = require('utils/password');
+const { compare2hash, pass2hash } = require('utils/password');
 const AuthStrategyInterface = require('../interface');
 
 class UsernamePasswordAuthStrategy extends AuthStrategyInterface {
@@ -27,6 +27,48 @@ class UsernamePasswordAuthStrategy extends AuthStrategyInterface {
     }
 
     return null;
+  }
+
+  _generateJwt(user) {
+    return this._app.encodeJwt({
+      ...user,
+    });
+  }
+
+  async createUser(credentials) {
+    const passwordHash = await pass2hash(credentials.password);
+    const previousUser = await this.model.findOne({
+      where: {
+        username: {
+          [Op.iLike]: credentials.username,
+        },
+      },
+    });
+
+    if (previousUser) {
+      throw new ApiError(
+        {
+          title: 'Username already exists',
+        },
+        400,
+      );
+    }
+
+    const userLocal = await DB.userLocals.create(
+      {
+        passwordHash,
+        username,
+        user: {
+          name,
+          phone,
+        },
+      },
+      {
+        include: [DB.users],
+      },
+    );
+
+    return DB.users.findByPk(userLocal.user.id);
   }
 }
 

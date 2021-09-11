@@ -6,6 +6,9 @@ module.exports = async (app, opts) => {
     '/login',
     {
       schema: Schema.loginSchema,
+      validatorCompiler: ({ schema, method, url, httpPart }) => {
+        return (data) => schema.validate(data);
+      },
     },
     Controller.LOGIN(app),
   );

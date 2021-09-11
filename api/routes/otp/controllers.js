@@ -1,9 +1,9 @@
 const DB = require('models');
 const ApiError = require('base/error');
-const BaseDetailController = require('base/controllers/detailController');
-const { randomGenerator } = require('utils/random');
+const ModelController = require('base/controllers/modelController');
+const { random } = require('utils/random');
 
-class OtpLoginController extends BaseDetailController {
+class OtpLoginController extends ModelController {
   model = DB.users;
 
   getObject() {
@@ -20,11 +20,11 @@ class OtpLoginController extends BaseDetailController {
     if (!user) {
       throw ApiError('User not found');
     }
-    const redisClient = this.app.getService('redis').client;
+    const redisClient = this.app.getService('redis');
     const smsClient = this.app.getService('sms');
     const phone = this.request.body.phone;
-    const otp = randomGenerator();
-    redisClient.setex(phone, 60 * 5, otp);
+    const otp = random();
+    redisClient.set(phone, otp, 60 * 5);
     smsClient.sendMessage(otp, phone);
     return {
       message: 'OTP Sent',
