@@ -1,7 +1,7 @@
-const BaseController = require('./createController');
+const CreateController = require('./createController');
 const { removeNonEditableAttrs } = require('./utils');
 
-class BaseUpdateController extends BaseController {
+class BaseUpdateController extends CreateController {
   nonEditableAttrs = [];
 
   get _nonEditableAttrs() {

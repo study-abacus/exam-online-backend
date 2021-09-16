@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
-const BaseController = require('./modelController');
+const ModelController = require('./modelController');
 
-class BaseDetailController extends BaseController {
+class BaseListController extends ModelController {
   model = null;
 
   _opsMap = {
@@ -24,10 +24,6 @@ class BaseDetailController extends BaseController {
       };
     });
     return Object.assign({}, ...keyValues);
-  }
-
-  async serialize(instances) {
-    return this.model.listToJsonApiPayload(instances);
   }
 
   generateOffsetStatement() {
@@ -79,4 +75,4 @@ class BaseDetailController extends BaseController {
   }
 }
 
-module.exports = BaseDetailController;
+module.exports = BaseListController;

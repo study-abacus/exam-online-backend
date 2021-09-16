@@ -1,6 +1,7 @@
 const BaseController = require('./baseController');
+const SerializerMixin = require('base/mixins/serializer');
 
-class ModelController extends BaseController {
+class ModelController extends SerializerMixin(BaseController) {
   model = null;
   defaultExcludes = [];
 

@@ -84,3 +84,6 @@ tmp/
 .DS_Store
 
 postgres-data/
+
+.vscode/
+.vscode

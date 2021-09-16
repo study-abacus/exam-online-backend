@@ -33,6 +33,7 @@ app
       prefix: '/api',
     },
   })
+
   .setErrorHandler((error, request, reply) => {
     console.log(error);
 

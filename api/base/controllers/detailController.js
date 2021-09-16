@@ -1,11 +1,7 @@
-const BaseController = require('./modelController');
+const ModelController = require('./modelController');
 
-class BaseDetailController extends BaseController {
+class BaseDetailController extends ModelController {
   model = null;
-
-  async serialize(instance) {
-    return instance.toJsonApiPayload();
-  }
 
   getObject() {
     return this.model.findOne({
