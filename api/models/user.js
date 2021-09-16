@@ -26,13 +26,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      email: {
-        type: DataTypes.STRING,
-        validate: {
-          isEmail: true,
-        },
-        allowNull: false,
-      },
       verified: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
@@ -40,6 +33,18 @@ module.exports = (sequelize, DataTypes) => {
       },
       roles: {
         type: DataTypes.ARRAY(DataTypes.ENUM(ROLES_TYPES)),
+      },
+      phone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          validatePhone: function (value) {
+            if (!value.match(/[2-9]{2}\d{8}/)) {
+              throw new Error('Invalid phone number: ' + value);
+            }
+          },
+        },
       },
     },
     {

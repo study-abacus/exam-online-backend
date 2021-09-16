@@ -24,22 +24,25 @@
     "fastify-cors": "^4.1.0",
     "fastify-plugin": "^2.3.4",
     "fastify-qs": "^2.0.0",
+    "joi": "^17.4.2",
     "jsonapi-serializer": "^3.6.6",
     "jsonwebtoken": "^8.5.1",
     "minio": "^7.0.18",
     "moment": "^2.29.1",
     "pg": "^8.3.3",
     "ramda": "^0.27.1",
+    "redis": "^3.1.2",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0",
+    "twilio": "^3.67.0",
     "uuid": "^8.3.1"
   },
   "devDependencies": {
     "husky": "^4.3.0",
     "jslint": "^0.12.1",
     "lint-staged": "^10.4.2",
-    "prettier": "^2.1.2",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2"
   },
   "husky": {
     "hooks": {

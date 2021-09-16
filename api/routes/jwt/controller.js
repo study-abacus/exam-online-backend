@@ -3,9 +3,8 @@ const ApiError = require('base/error');
 module.exports = {
   LOGIN: (app) => async (request, reply) => {
     const _authenticationService = app.getService('authentication');
-
-    const { email, password } = request.body;
-    const token = await _authenticationService.authenticate(email.trim(), password);
+    const strategy = await _authenticationService.getStrategy('otp');
+    const token = await strategy.authenticate(request.body);
 
     if (!token) {
       throw new ApiError(

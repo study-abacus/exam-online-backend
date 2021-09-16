@@ -8,9 +8,6 @@ module.exports = {
       const user = await DB.users.findByPk(payload.user.id, {
         include: {
           model: DB.profiles,
-          include: {
-            model: DB.teachers,
-          },
         },
       });
       return user;

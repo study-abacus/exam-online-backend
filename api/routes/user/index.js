@@ -32,8 +32,11 @@ module.exports = async (app, opts) => {
     {
       schema: Schema.postSchema,
       preHandler: MatchPassword,
+      validatorCompiler: ({ schema, method, url, httpPart }) => {
+        return (data) => schema.validate(data);
+      },
     },
-    Controllers.UserDetailController.asHandler('post'),
+    Controllers.UserDetailController.asHandler('post', app),
   );
 };
 
