@@ -1,22 +1,19 @@
+const Joi = require('joi');
+
 const postSchema = {
-  body: {
-    type: 'object',
-    required: ['name', 'email', 'password', 'passwordRepeat'],
-    properties: {
-      name: {
-        type: 'string',
-      },
-      email: {
-        type: 'string',
-      },
-      password: {
-        type: 'string',
-      },
-      passwordRepeat: {
-        type: 'string',
-      },
-    },
-  },
+  body: Joi.object({
+    name: Joi.string().min(3).max(50).required(),
+    phone: Joi.string().regex(/^\d+$/).min(10).max(10).required(),
+    school: Joi.string(),
+    class: Joi.string(),
+    guardianName: Joi.string(),
+    otherTeacher: Joi.string(),
+    address: Joi.string(),
+    city: Joi.string(),
+    country: Joi.string(),
+    currentLevel: Joi.number(),
+    email: Joi.string().email(),
+  }),
 };
 
 module.exports = {

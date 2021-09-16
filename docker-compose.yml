@@ -5,7 +5,7 @@ services:
     image: postgres:10
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
-    environment: 
+    environment:
       POSTGRES_USER: random
       POSTGRES_PASSWORD: random
       POSTGRES_DB: champ
@@ -13,10 +13,10 @@ services:
     image: studyabacus/exam-online-backend
     build: .
     ports:
-      - "6969:6969"
+      - '6969:6969'
     depends_on:
       - postgres
-    environment: 
+    environment:
       DB_USER: random
       DB_PASS: random
       DB_NAME: champ

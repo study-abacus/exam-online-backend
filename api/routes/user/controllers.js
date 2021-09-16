@@ -1,11 +1,8 @@
-const { Op } = require('sequelize');
 const BaseController = require('base/controllers/baseController');
 const BaseDetailController = require('base/controllers/detailController');
 const BaseUpdateController = require('base/controllers/updateController');
 const DB = require('models');
 const config = require('config');
-const ApiError = require('base/error');
-const { createUserAfterSignUp } = require('./utils');
 
 class UserDetailController extends BaseDetailController {
   model = DB.users;
@@ -21,26 +18,9 @@ class UserDetailController extends BaseDetailController {
   }
 
   async post() {
-    const { name, email, password } = this.request.body;
-
-    const previousUser = await this.model.findOne({
-      where: {
-        email: {
-          [Op.iLike]: email
-        },
-      },
-    });
-
-    if (previousUser) {
-      throw new ApiError(
-        {
-          title: 'Email ID already exist',
-        },
-        400,
-      );
-    }
-
-    const user = await createUserAfterSignUp({ name, email, password });
+    const _authenticationService = this.app.getService('authentication');
+    const strategy = await _authenticationService.getStrategy('otp');
+    const user = await strategy.createUser(this.request.body);
 
     return this.serialize(user);
   }
