@@ -34,4 +34,8 @@ module.exports = {
     AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
     PHONE_NUMBER: process.env.TWILIO_PHONE_NUMBER,
   },
+  REDIS: {
+    HOST: process.env.REDIS_HOST,
+    PASSWORD: process.env.REDIS_PASS,
+  },
 };

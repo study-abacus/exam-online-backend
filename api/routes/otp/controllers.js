@@ -18,7 +18,7 @@ class OtpLoginController extends ModelController {
   async post() {
     const user = await this.getObject();
     if (!user) {
-      throw ApiError('User not found');
+      throw new ApiError('User not found');
     }
     const redisClient = this.app.getService('redis');
     const smsClient = this.app.getService('sms');

@@ -9,17 +9,23 @@ services:
       POSTGRES_USER: random
       POSTGRES_PASSWORD: random
       POSTGRES_DB: champ
+  redis:
+    image: redis
   exam-online-backend:
     image: studyabacus/exam-online-backend
     build: .
+    volumes: 
+      - ./:/usr/src/exam-online-backend
     ports:
       - '6969:6969'
     depends_on:
       - postgres
+      - redis
     environment:
       DB_USER: random
       DB_PASS: random
       DB_NAME: champ
       DB_HOST: postgres
+      REDIS_HOST: redis
     env_file:
       - .env

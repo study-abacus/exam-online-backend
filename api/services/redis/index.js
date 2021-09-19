@@ -5,7 +5,10 @@ const { promisify } = require('util');
 class RedisClient {
   constructor(app) {
     this._app = app;
-    const client = redis.createClient();
+    const client = redis.createClient({
+      host: config.REDIS.HOST,
+      password: config.REDIS.PASS,
+    });
     client.on('error', function (error) {
       console.error(error);
     });
