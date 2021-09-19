@@ -10,7 +10,7 @@ class OtpAuthStrategy extends AuthStrategyInterface {
     this._redis = app.getService('redis');
   }
 
-  async authenticate({ phone, otp }) {
+  async matchOtp({ phone, otp }) {
     if (!phone || !otp) {
       return null;
     }
@@ -19,6 +19,14 @@ class OtpAuthStrategy extends AuthStrategyInterface {
       const user = await DB.users.findOne({
         where: { phone },
       });
+      return user;
+    }
+    return null;
+  }
+
+  async authenticate({ phone, otp }) {
+    const user = await this.matchOtp({ phone, otp });
+    if (user) {
       return {
         jwt: this._generateJwt({ user }),
         refresh_token: v4(),
@@ -34,11 +42,7 @@ class OtpAuthStrategy extends AuthStrategyInterface {
   }
 
   async createUser(credentials) {
-    const previousUser = await DB.users.findOne({
-      where: {
-        phone: credentials.phone,
-      },
-    });
+    const previousUser = await this.matchOtp(credentials);
 
     if (previousUser) {
       throw new ApiError(
