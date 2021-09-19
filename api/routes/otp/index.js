@@ -6,11 +6,16 @@ module.exports = async (app, opts) => {
     '/',
     {
       schema: Schema.postSchema,
-      validatorCompiler: ({ schema, method, url, httpPart }) => {
-        return (data) => schema.validate(data);
-      },
     },
     Controllers.OtpLoginController.asHandler('post', app),
+  );
+
+  app.post(
+    '/new',
+    {
+      schema: Schema.postSchema,
+    },
+    Controllers.OtpSignupController.asHandler('post', app),
   );
 };
 
