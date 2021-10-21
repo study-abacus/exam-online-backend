@@ -15,7 +15,7 @@ services:
     image: studyabacus/exam-online-backend
     build: .
     volumes: 
-      - ./:/usr/src/exam-online-backend
+      - ./api:/usr/src/exam-online-backend/api
     ports:
       - '6969:6969'
     depends_on:

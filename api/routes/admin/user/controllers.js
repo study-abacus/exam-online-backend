@@ -8,6 +8,16 @@ class UserDetailController extends BaseDetailController {
   model = DB.users;
   modelName = DB.users.name;
   serializerOpts = UserSerializerOpts(DB.users);
+
+  async getMe() {
+    const user = await this.model.findByPk(this.request.user.id, {
+      include: {
+        model: DB.profiles,
+      },
+    });
+
+    return this.serialize(user);
+  }
 }
 
 class UserListController extends BaseListController {

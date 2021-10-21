@@ -2,8 +2,8 @@ const Joi = require('joi');
 
 const loginSchema = {
   body: Joi.object({
-    phone: Joi.string().regex(/^\d+$/).min(10).max(10).required(),
-    otp: Joi.string().regex(/^\d+$/).min(5).max(5).required(),
+    username: Joi.string().min(5).max(30).required,
+    password: Joi.string().min(5).max(50).required,
   })
     .keys()
     .required(),

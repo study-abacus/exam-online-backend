@@ -3,6 +3,11 @@ const AdminRoleRequired = require('hooks/admin-role-required');
 
 module.exports = async (app, opts) => {
   app.get(
+    '/me',
+    { preHandler: AdminRoleRequired },
+    Controllers.UserDetailController.asHandler('getMe'),
+  );
+  app.get(
     '/:id',
     { preHandler: AdminRoleRequired },
     Controllers.UserDetailController.asHandler('get'),

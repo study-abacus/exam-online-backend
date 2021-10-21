@@ -8,20 +8,19 @@ class UsernamePasswordAuthStrategy extends AuthStrategyInterface {
   async authenticate({ username, password }) {
     const userLocal = await DB.userLocals.findOne({
       include: {
-        attributes: ['id', 'name', 'username'],
         model: DB.users,
-        where: {
-          username: {
-            [Op.iLike]: username,
-          },
-        },
-        required: true,
       },
+      where: {
+        username: {
+          [Op.iLike]: username,
+        },
+      },
+      required: true,
     });
 
     if (userLocal && (await compare2hash(password, userLocal.passwordHash))) {
       return {
-        jwt: this._generateJwt(userLocal.user),
+        jwt: this._generateJwt({ user: userLocal.user }),
         refresh_token: v4(),
       };
     }
@@ -36,8 +35,10 @@ class UsernamePasswordAuthStrategy extends AuthStrategyInterface {
   }
 
   async createUser(credentials) {
-    const passwordHash = await pass2hash(credentials.password);
-    const previousUser = await this.model.findOne({
+    const { username, password, name, phone } = credentials;
+
+    const passwordHash = await pass2hash(password);
+    const previousUser = await DB.userLocals.findOne({
       where: {
         username: {
           [Op.iLike]: credentials.username,
