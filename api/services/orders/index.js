@@ -47,7 +47,7 @@ class OrdersService {
     });
 
     // Custom checks because why choose life?
-    if (examinations.length > 1) {
+    if (examinations.length > 2) {
       throw new ApiError(
         {
           title: 'Only 1 examinations allowed',
@@ -69,7 +69,7 @@ class OrdersService {
     }
 
     const amount = examinations.reduce(
-      (acc, curr, i) => acc + (i === 0 ? +curr.primaryPrice : +curr.secondaryPrice),
+      (acc, curr, i) => acc + (i === 0 ? +curr.primaryPrice * 100 : +curr.secondaryPrice * 100),
       0,
     );
 
