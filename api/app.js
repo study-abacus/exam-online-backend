@@ -29,6 +29,12 @@ app
   .register(Services)
   .register(Autoload, {
     dir: path.join(__dirname, 'routes'),
+    // Who thought it was a good idea to recursively import all the sub directories
+    // because that's how we keep our modules?
+    // God bless the stupid souls who made some of the great minds of open source
+    // make such an API just so their stupidity can be accomodated for and make the
+    // framework widely acceptable.
+    maxDepth: 1,
     options: {
       prefix: '/api',
     },
