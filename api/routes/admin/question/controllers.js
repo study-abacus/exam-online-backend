@@ -23,13 +23,13 @@ class QuestionDeleteController extends BaseDeleteController {
 class QuestionCreateController extends BaseCreateController {
   model = DB.questions;
   modelName = DB.questions.name;
-  serializerOpts = QuestionSerializerOpts(DB.questions.name);
+  deserializerOpts = QuestionSerializerOpts(DB.questions.name, 'deserialize');
 }
 
 class QuestionsUpdateController extends BaseUpdateController {
   model = DB.questions;
   modelName = DB.questions.name;
-  serializerOpts = QuestionSerializerOpts(DB.questions.name);
+  deserializerOpts = QuestionSerializerOpts(DB.questions.name, 'deserialize');
 }
 class QuestionsListController extends BaseListController {
   model = DB.questions;

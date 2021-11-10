@@ -26,7 +26,7 @@ class OtpLoginController extends ModelController {
         {
           title: 'User not found',
           code: 401,
-          detail: 'User with this phone number does not exist in our database.',
+          detail: 'Phone number not Registered',
         },
         401,
       );
