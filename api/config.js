@@ -13,7 +13,7 @@ module.exports = {
     database: process.env.DB_NAME || 'champ',
     host: process.env.DB_HOST || '127.0.0.1',
     dialect: 'postgres',
-    logging: process.env.DB_LOGGING || console.log,
+    logging: process.env.DB_LOGGING_DISABLED ? false : console.log,
   },
   RAZORPAY: {
     ID: process.env.RAZORPAY_ID || 'rzp_test_Ou4rWUqLrEoS8l',
