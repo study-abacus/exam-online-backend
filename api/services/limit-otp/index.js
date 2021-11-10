@@ -3,6 +3,10 @@ const Moment = require('moment');
 const { Op } = require('sequelize');
 
 class LimitOtpService {
+  constructor(app) {
+    this._app = app;
+  }
+
   async canSendOtp(phone) {
     const totalOtpSentInADay = await DB.otpLogs.count({
       where: {
@@ -25,4 +29,4 @@ class LimitOtpService {
   }
 }
 
-module.exports = new LimitOtpService();
+module.exports = LimitOtpService;

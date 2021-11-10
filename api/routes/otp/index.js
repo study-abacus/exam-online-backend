@@ -7,7 +7,7 @@ module.exports = async (app, opts) => {
     '/',
     {
       schema: Schema.postSchema,
-      preHandler: [limitedSmsToPhoneNumber],
+      preHandler: [limitedSmsToPhoneNumber(app)],
     },
     Controllers.OtpLoginController.asHandler('post', app),
   );
@@ -16,7 +16,7 @@ module.exports = async (app, opts) => {
     '/new',
     {
       schema: Schema.postSchema,
-      preHandler: [limitedSmsToPhoneNumber],
+      preHandler: [limitedSmsToPhoneNumber(app)],
     },
     Controllers.OtpSignupController.asHandler('post', app),
   );

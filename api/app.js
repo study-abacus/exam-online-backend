@@ -34,7 +34,13 @@ app
     // God bless the stupid souls who made some of the great minds of open source
     // make such an API just so their stupidity can be accomodated for and make the
     // framework widely acceptable.
-    maxDepth: 1,
+    //
+    // and yet in a metter of minutes I realize the stupidity I was talking about.
+    // We stupids are so used to the abstraction that our ability to think creatively
+    // is practically dead. God Bless the future of software engineeering with Stupids
+    // like myself contributing to it.
+    //
+    // maxDepth: 1,
     options: {
       prefix: '/api',
     },

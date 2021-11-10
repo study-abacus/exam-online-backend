@@ -2,7 +2,6 @@ const DB = require('models');
 const ApiError = require('base/error');
 const ModelController = require('base/controllers/modelController');
 const { random } = require('utils/random');
-const LimitOtpService = require('./services/limit-otp-service');
 
 class OtpLoginController extends ModelController {
   model = DB.users;
@@ -17,6 +16,10 @@ class OtpLoginController extends ModelController {
   }
 
   async post() {
+    const redisClient = this.app.getService('redis');
+    const smsClient = this.app.getService('sms');
+    const otpLimitingService = this.app.getService('limit-otp');
+
     const user = await this.getObject();
     if (!user) {
       throw new ApiError(
@@ -28,13 +31,14 @@ class OtpLoginController extends ModelController {
         401,
       );
     }
-    const redisClient = this.app.getService('redis');
-    const smsClient = this.app.getService('sms');
+
     const phone = this.request.body.phone;
     const otp = random();
+
     redisClient.set(phone, otp, 60 * 5);
     smsClient.sendMessage(otp, phone);
-    LimitOtpService.tickOtpSend(phone, otp);
+
+    otpLimitingService.tickOtpSend(phone, otp);
     return {
       message: 'OTP Sent',
     };
@@ -54,6 +58,10 @@ class OtpSignupController extends ModelController {
   }
 
   async post() {
+    const redisClient = this.app.getService('redis');
+    const smsClient = this.app.getService('sms');
+    const otpLimitingService = this.app.getService('limit-otp');
+
     const user = await this.getObject();
     if (user) {
       throw new ApiError(
@@ -65,13 +73,14 @@ class OtpSignupController extends ModelController {
         400,
       );
     }
-    const redisClient = this.app.getService('redis');
-    const smsClient = this.app.getService('sms');
+
     const phone = this.request.body.phone;
     const otp = random();
+
     redisClient.set(phone, otp, 60 * 5);
     smsClient.sendMessage(otp, phone);
-    LimitOtpService.tickOtpSend(phone, otp);
+
+    otpLimitingService.tickOtpSend(phone, otp);
     return {
       message: 'OTP Sent',
     };

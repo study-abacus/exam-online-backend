@@ -8,7 +8,7 @@ class SmsService {
   }
 
   sendMessage(otp, phone) {
-    const body = `Your Study Abacus OTP is ${otp}. This OTP will be valid for 5 minutes.`;
+    const body = `Your Study Abacus Online Exam Profile OTP is ${otp}. This OTP will be valid for 5 minutes.`;
     this._client.messages
       .create({ body, from: PHONE_NUMBER, to: `+91${phone}` })
       .then((message) => console.log(message.sid));

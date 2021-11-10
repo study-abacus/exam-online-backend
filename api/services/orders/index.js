@@ -50,7 +50,7 @@ class OrdersService {
     if (examinations.length > 2) {
       throw new ApiError(
         {
-          title: 'Only 1 examinations allowed',
+          title: 'Only 2 examinations allowed',
         },
         400,
       );

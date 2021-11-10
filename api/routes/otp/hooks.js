@@ -1,9 +1,11 @@
-const LimitOtpService = require('./services/limit-otp-service');
+const LimitOtpService = require('../../services/limit-otp');
 const ApiError = require('base/error');
 
-const limitedSmsToPhoneNumber = async (request) => {
+const limitedSmsToPhoneNumber = (app) => async (request) => {
+  const otpLimitingService = app.getService('limit-otp');
+
   const phone = request.body.phone;
-  if (await LimitOtpService.canSendOtp(phone)) {
+  if (await otpLimitingService.canSendOtp(phone)) {
     return;
   }
 
