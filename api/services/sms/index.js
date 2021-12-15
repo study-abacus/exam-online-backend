@@ -1,17 +1,31 @@
-const twilio = require('twilio');
-const { ACCOUNT_SID: accountSid, AUTH_TOKEN: authToken, PHONE_NUMBER } = require('config').TWILIO;
+const axios = require('axios');
+const config = require('config');
+const FormData = require('form-data');
 
 class SmsService {
   constructor(app) {
-    this.app = app;
-    this._client = twilio(accountSid, authToken);
+    this._app = app;
+    this._axios = axios.create({
+      baseURL: config.TEXT_LOCAL.HOST,
+    });
   }
 
-  sendMessage(otp, phone) {
-    const body = `Your Study Abacus Online Exam Profile OTP is ${otp}. This OTP will be valid for 5 minutes.`;
-    this._client.messages
-      .create({ body, from: PHONE_NUMBER, to: `+91${phone}` })
-      .then((message) => console.log(message.sid));
+  _sendMessage(phone, message) {
+    const form = new FormData();
+    form.append('apiKey', config.TEXT_LOCAL.API_KEY);
+    form.append('numbers', `91${phone}`);
+    form.append('sender', config.TEXT_LOCAL.HEADER);
+    form.append('message', message);
+
+    return this._axios.post('send', form, {
+      headers: form.getHeaders(),
+    });
+  }
+
+  sendOtp(otp, phone) {
+    const body = `Your Study Abacus OTP is ${otp}. This OTP will be valid for the next 5 minutes.`;
+
+    return this._sendMessage(phone, body);
   }
 }
 

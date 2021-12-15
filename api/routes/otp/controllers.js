@@ -36,7 +36,7 @@ class OtpLoginController extends ModelController {
     const otp = random();
 
     redisClient.set(phone, otp, 60 * 5);
-    smsClient.sendMessage(otp, phone);
+    await smsClient.sendOtp(otp, phone);
 
     otpLimitingService.tickOtpSend(phone, otp);
     return {
@@ -78,7 +78,7 @@ class OtpSignupController extends ModelController {
     const otp = random();
 
     redisClient.set(phone, otp, 60 * 5);
-    smsClient.sendMessage(otp, phone);
+    await smsClient.sendOtp(otp, phone);
 
     otpLimitingService.tickOtpSend(phone, otp);
     return {

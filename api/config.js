@@ -34,6 +34,11 @@ module.exports = {
     AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
     PHONE_NUMBER: process.env.TWILIO_PHONE_NUMBER,
   },
+  TEXT_LOCAL: {
+    API_KEY: process.env.TEXT_LOCAL_API_KEY,
+    HOST: process.env.TEXT_LOCAL_HOST || 'https://api.textlocal.in/',
+    HEADER: process.env.TEXT_LOCAL_HEADER || 'STDABS',
+  },
   REDIS: {
     HOST: process.env.REDIS_HOST,
     PASSWORD: process.env.REDIS_PASS,
