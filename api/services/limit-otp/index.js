@@ -1,6 +1,7 @@
 const DB = require('models');
 const Moment = require('moment');
 const { Op } = require('sequelize');
+const config = require('config');
 
 class LimitOtpService {
   constructor(app) {
@@ -18,7 +19,7 @@ class LimitOtpService {
       },
     });
 
-    return totalOtpSentInADay < 3;
+    return totalOtpSentInADay < config.APP.OTP_DAILY_LIMIT;
   }
 
   async tickOtpSend(phone, otp) {

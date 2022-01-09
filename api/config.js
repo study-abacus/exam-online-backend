@@ -1,6 +1,7 @@
 module.exports = {
   APP: {
     ENV: process.env.NODE_ENV || 'development',
+    OTP_DAILY_LIMIT: process.env.OTP_DAILY_LIMIT ? Number(process.env.OTP_DAILY_LIMIT) : 3,
   },
   SERVER: {
     PORT: process.env.PORT || 6969,
