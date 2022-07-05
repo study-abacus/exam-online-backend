@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           validatePhone: function (value) {
-            if (!value.match(/[2-9]{2}\d{8}/)) {
+            if (!value.match(/[6-9]{1}\d{9}/)) {
               throw new Error('Invalid phone number: ' + value);
             }
           },
