@@ -51,6 +51,7 @@ class ResultController extends BaseController {
           title: attempt.examination.title,
         },
       })),
+      certificate: examAttempts.certificate,
     };
   }
 }
