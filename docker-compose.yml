@@ -3,11 +3,13 @@ version: '3'
 services:
   postgres:
     image: postgres:10
+    ports:
+      - '5432:5432'
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: random
-      POSTGRES_PASSWORD: random
+      POSTGRES_USER: champ
+      POSTGRES_PASSWORD: champ
       POSTGRES_DB: champ
   redis:
     image: redis
