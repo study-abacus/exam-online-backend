@@ -1,5 +1,5 @@
 const JsonApiModel = require('base/jsonApiModel');
-const SerializerOpts = require('serializer-opts/order');
+const SerializerOpts = require('serializer-opts/event');
 
 class Event extends JsonApiModel {
   static get serializerOpts() {
