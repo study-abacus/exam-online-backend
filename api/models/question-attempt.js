@@ -1,20 +1,10 @@
 const { Model } = require('sequelize');
-const JsonApiModel = require('base/jsonApiModel');
-const SerializerOpts = require('serializer-opts/question-attempt');
 
-class QuestionAttempt extends JsonApiModel {
-  static get serializerOpts() {
-    return SerializerOpts(this);
-  }
-
-  static get deserializerOpts() {
-    return SerializerOpts(this, 'deserialize');
-  }
-
-  static associate({ questions, questionAttempts, examAttempts }) {
+class QuestionAttempt extends Model {
+  static associate({ questions, questionAttempts, subjectAttempts }) {
     questions.hasOne(questionAttempts);
     questionAttempts.belongsTo(questions);
-    questionAttempts.belongsTo(examAttempts);
+    questionAttempts.belongsTo(subjectAttempts);
   }
 }
 

@@ -1,12 +1,6 @@
 const { Model } = require('sequelize');
-const JsonApiModel = require('base/jsonApiModel');
-const SerializerOpts = require('serializer-opts/examination');
 
-class Examination extends JsonApiModel {
-  static get serializerOpts() {
-    return SerializerOpts(this);
-  }
-
+class Examination extends Model {
   static associate(models) {
     // define association here
   }
@@ -19,18 +13,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      code: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       description: {
         type: DataTypes.TEXT,
         defaultValue: '',
-        allowNull: false,
-      },
-      type: {
-        type: DataTypes.ENUM(DataTypes.STRING),
-        values: ['english', 'vedic-maths', 'abacus'],
         allowNull: false,
       },
       primaryPrice: {
@@ -41,18 +26,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BIGINT,
         allowNull: false,
       },
-      start: {
+      registrationStart: {
         type: DataTypes.DATE,
         allowNull: false,
       },
       registrationEnd: {
         type: DataTypes.DATE,
         allowNull: false,
-      },
-      unlisted: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
       },
     },
     {
