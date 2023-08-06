@@ -1,6 +1,6 @@
 const DB = require('models');
 
-const enrollInExaminations = async (examinationsIds, userId) => {
+const enrollInExaminations = async ({ examinationsIds, userId, eventId }) => {
   const result = await DB.sequelize.transaction(async (transaction) => {
     await Promise.all(
       examinationsIds.map(async (examinationId) => {
@@ -11,6 +11,7 @@ const enrollInExaminations = async (examinationsIds, userId) => {
             start: exam.start,
             userId,
             examinationId,
+            eventId,
           },
           { transaction },
         );
