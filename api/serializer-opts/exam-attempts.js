@@ -1,5 +1,6 @@
 const ExaminationSerializerOpts = require('./examination');
 const UserSerializerOpts = require('./user');
+const EventSerializerOpts = require('./event');
 
 module.exports = () => ({
   attributes: [
@@ -15,6 +16,10 @@ module.exports = () => ({
   examination: {
     ref: 'id',
     ...ExaminationSerializerOpts(),
+  },
+  event: {
+    ref: 'id',
+    ...EventSerializerOpts(),
   },
   user: {
     ref: 'id',
