@@ -26,6 +26,25 @@ const isExaminationIdsCorrect = async (examinationIds) => {
   return true;
 };
 
+const isEventIdCorrect = async (eventId) => {
+  const event = await DB.events.findOne({
+    where: {
+      id: eventId,
+      endDate: {
+        [Sequelize.Op.gt]: moment().toISOString(),
+      },
+    },
+  });
+
+  if (event === null) {
+    throw new ApiError({
+      title: 'Incorrect Event Selected',
+    });
+  }
+
+  return true;
+};
+
 const verifyRazorpaySignature = (orderId, paymentId, razorpaySignature) => {
   const hmac = crypto.createHmac('sha256', config.RAZORPAY.SECRET);
   hmac.update(`${orderId}|${paymentId}`);
@@ -36,5 +55,6 @@ const verifyRazorpaySignature = (orderId, paymentId, razorpaySignature) => {
 
 module.exports = {
   isExaminationIdsCorrect,
+  isEventIdCorrect,
   verifyRazorpaySignature,
 };

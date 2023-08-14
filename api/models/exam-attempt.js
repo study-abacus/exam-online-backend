@@ -7,9 +7,10 @@ class ExamAttempt extends JsonApiModel {
     return SerializerOpts(this);
   }
 
-  static associate({ examAttempts, examinations, users }) {
+  static associate({ examAttempts, examinations, users, events }) {
     examAttempts.belongsTo(examinations);
     examAttempts.belongsTo(users);
+    examAttempts.belongsTo(events);
   }
 }
 

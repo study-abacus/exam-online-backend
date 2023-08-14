@@ -1,12 +1,15 @@
 const postSchema = {
   body: {
     type: 'object',
-    required: ['examinationIds'],
+    required: ['examinationIds', 'eventId'],
     properties: {
       examinationIds: {
         type: 'array',
         maxItems: 2,
         items: { type: 'integer' },
+      },
+      eventId: {
+        type: 'integer',
       },
     },
   },

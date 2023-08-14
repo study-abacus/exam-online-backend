@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const DB = require('models');
-const { isExaminationIdsCorrect, verifyRazorpaySignature } = require('./utils');
+const { isExaminationIdsCorrect, verifyRazorpaySignature, isEventIdCorrect } = require('./utils');
 const ApiError = require('base/error');
 const config = require('config');
 const axios = require('axios');
@@ -19,7 +19,7 @@ class OrdersService {
     });
   }
 
-  async createOrder(examinationIds, userId) {
+  async createOrder({ examinationIds, userId, eventId }) {
     const prevOrder = await DB.orders.findOne({
       where: {
         userId,
@@ -37,6 +37,7 @@ class OrdersService {
     }
 
     await isExaminationIdsCorrect(examinationIds);
+    await isEventIdCorrect(eventId);
 
     const examinations = await DB.examinations.findAll({
       where: {
@@ -68,15 +69,16 @@ class OrdersService {
       );
     }
 
-    const amount = examinations.reduce(
-      (acc, curr, i) => acc + (i === 0 ? +curr.primaryPrice * 100 : +curr.secondaryPrice * 100),
-      0,
-    );
+    const event = await DB.events.findByPk(eventId);
+
+    const amount =
+      event.primaryPrice * 100 + (examinations.length - 1) * (event.secondaryPrice * 100);
 
     const order = await DB.orders.create({
       amount,
       userId,
       examinations: examinationIds,
+      eventId,
     });
 
     return order;

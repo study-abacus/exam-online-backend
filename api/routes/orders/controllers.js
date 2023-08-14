@@ -15,9 +15,13 @@ class OrdersDetailController extends BaseDetailController {
 
   async post() {
     const _ordersService = this.app.getService('orders');
-    const { examinationIds } = this.request.body;
+    const { examinationIds, eventId } = this.request.body;
 
-    const order = await _ordersService.createOrder(examinationIds, this.request.user.id);
+    const order = await _ordersService.createOrder({
+      examinationIds,
+      userId: this.request.user.id,
+      eventId,
+    });
 
     return this.serialize(order);
   }
@@ -54,7 +58,11 @@ class OrdersDetailController extends BaseDetailController {
       // fetch updated object
       order = await this.getObject();
 
-      enrollInExaminations(order.examinations, this.request.user.id);
+      enrollInExaminations({
+        examinationsIds: order.examinations,
+        userId: this.request.user.id,
+        eventId: order.eventId,
+      });
 
       return this.serialize(order);
     } catch (err) {

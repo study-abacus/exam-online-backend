@@ -7,9 +7,10 @@ class Order extends JsonApiModel {
     return SerializerOpts(this);
   }
 
-  static associate({ orders, users }) {
+  static associate({ orders, users, events }) {
     orders.belongsTo(users);
     users.hasMany(orders);
+    orders.belongsTo(events);
   }
 }
 
