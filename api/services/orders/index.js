@@ -71,7 +71,8 @@ class OrdersService {
 
     const event = await DB.events.findByPk(eventId);
 
-    const amount = event.primaryPrice * 100 + event.secondaryPrice * 100;
+    const amount =
+      event.primaryPrice * 100 + (examinations.length - 1) * (event.secondaryPrice * 100);
 
     const order = await DB.orders.create({
       amount,
