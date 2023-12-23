@@ -26,6 +26,8 @@ class UserListController extends BaseListController {
   model = DB.users;
   modelName = DB.users.name;
   serializerOpts = UserSerializerOpts(DB.users);
+
+  
 }
 
 class UserCreateController extends BaseCreateController {
