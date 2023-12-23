@@ -2,6 +2,7 @@ const { Model } = require('sequelize');
 
 class UserLocal extends Model {
   static associate({ userLocals, users }) {
+    users.hasOne(userLocals)
     userLocals.belongsTo(users);
   }
 }

@@ -1,7 +1,12 @@
 const ProfileSerializerOpts = require('../profile');
+const UserLocalSerializerOpts = require('./user-local');
 
 module.exports = () => ({
-  attributes: ['id', 'name', 'verified', 'profile', 'roles', 'examAttempts'],
+  attributes: ['id', 'name', 'verified', 'phone', 'profile', 'roles', 'examAttempts', 'userLocal'],
+  userLocal: {
+    ref: 'id',
+    ...UserLocalSerializerOpts(),
+  },
   profile: {
     ref: 'id',
     ...ProfileSerializerOpts(),

@@ -13,6 +13,8 @@ module.exports = async (app, opts) => {
     Controllers.UserDetailController.asHandler('get'),
   );
   app.get('/', { preHandler: AdminRoleRequired }, Controllers.UserListController.asHandler('get'));
+  app.post('/', { preHandler: AdminRoleRequired }, Controllers.UserCreateController.asHandler('post'));
+  app.patch('/:id', { preHandler: AdminRoleRequired }, Controllers.UserUpdateController.asHandler('patch'));
   app.get(
     '/:id/relationships/exam-attempts',
     { preHandler: AdminRoleRequired },
