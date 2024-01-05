@@ -15,12 +15,14 @@ class ExamAttemptCreateController extends BaseCreateController {
   model = DB.examAttempts;
   modelName = DB.examAttempts.name;
   serializerOpts = ExamAttemptSerializerOpts(DB.examAttempts.name);
+  deserializerOpts = ExamAttemptSerializerOpts(DB.examAttempts.name, 'deserialize');
 }
 
 class ExamAttemptUpdateController extends BaseUpdateController {
   model = DB.examAttempts;
   modelName = DB.examAttempts.name;
   serializerOpts = ExamAttemptSerializerOpts(DB.examAttempts.name);
+  deserializerOpts = ExamAttemptSerializerOpts(DB.examAttempts.name, 'deserialize');
 }
 
 class ExamAttemptListController extends BaseListController {
