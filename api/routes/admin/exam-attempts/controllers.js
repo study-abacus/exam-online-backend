@@ -16,6 +16,13 @@ class ExamAttemptCreateController extends BaseCreateController {
   modelName = DB.examAttempts.name;
   serializerOpts = ExamAttemptSerializerOpts(DB.examAttempts.name);
   deserializerOpts = ExamAttemptSerializerOpts(DB.examAttempts.name, 'deserialize');
+
+  async beforeCreate(model) {
+    if (!model.start) {
+      const examination = await DB.examinations.findByPk(model.examinationId);
+      model.start = examination.start;
+    }
+  }
 }
 
 class ExamAttemptUpdateController extends BaseUpdateController {
